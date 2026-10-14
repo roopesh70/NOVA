@@ -13,8 +13,8 @@
 }
 
 @font-face {
-  font-family: 'Atelion';
-  src: url('../Font/astonpoliz.regular.otf') format('opentype');
+  font-family: 'Inria_Sans';
+  src: url('../Font/inria-sans.regular.otf') format('opentype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -40,8 +40,8 @@
   --radius-nav:   16px;
   --nav-h:        64px;
   --section-gap:  clamp(90px, 12vw, 160px);
-  --font-display: 'Nasalization', 'Atelion', 'Inter Tight', system-ui, sans-serif;
-  --font-body:    'Atelion', 'Inter Tight', system-ui, sans-serif;
+  --font-display: 'Nasalization', 'Inria_Sans', 'Inter Tight', system-ui, sans-serif;
+  --font-body:    'Inria_Sans', 'Inter Tight', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
   --font-wordmark:'Unbounded', Impact, sans-serif;
   --container:    1200px;
