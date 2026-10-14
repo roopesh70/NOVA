@@ -1,0 +1,17 @@
+{
+  "name": "nova",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "NOVA 5.0 - New Order for Visionary Astronomy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roopesh70/NOVA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roopesh70/NOVA/issues"
+  },
+  "homepage": "https://github.com/roopesh70/NOVA#readme"
+}

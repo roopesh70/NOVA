@@ -12,7 +12,7 @@
   const lenis = new Lenis({
     duration: 1.5,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 0.55,
+    wheelMultiplier: 0.7,
     touchMultiplier: 0.8,
     infinite: false,
     smoothWheel: true,
@@ -30,13 +30,43 @@
   // Intercept anchor links for smooth Lenis scrolling
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
+      if (a.closest('.mobile-menu')) return; // handled in mobile menu
       const targetId = a.getAttribute('href');
+      // If clicking Home link (#hero, #top): smoothly scroll to top (0)
+      if (targetId === '#hero' || targetId === '#top') {
+        e.preventDefault();
+        if (window.lenis) {
+          window.lenis.start();
+          window.lenis.scrollTo(0, { duration: 1.2 });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        return;
+      }
       if (targetId && targetId !== '#') {
         const targetEl = document.querySelector(targetId);
         if (targetEl) {
           e.preventDefault();
-          lenis.scrollTo(targetEl, { offset: -60, duration: 1.4 });
+          if (window.lenis) {
+            window.lenis.start();
+            window.lenis.scrollTo(targetEl, { offset: -70, duration: 1.2 });
+          } else {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
+      }
+    });
+  });
+
+  // Logo click: smoothly scroll to top (0)
+  document.querySelectorAll('.nav-logo').forEach((logo) => {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.lenis) {
+        window.lenis.start();
+        window.lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   });
@@ -67,7 +97,7 @@
           navLinks.forEach((lnk) => {
             lnk.classList.remove('active');
             const href = lnk.getAttribute('href');
-            if (href === '#' + sec.id || (sec.id === 'hero' && (href === '/' || href === 'index.html'))) {
+            if (href === '#' + sec.id || (sec.id === 'hero' && (href === '#hero' || href === '/' || href === 'index.html'))) {
               lnk.classList.add('active');
             }
           });
@@ -85,30 +115,93 @@
   const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
   function openMenu() {
+    if (!mobileMenu) return;
     mobileMenu.classList.add('open');
     mobileMenu.removeAttribute('aria-hidden');
-    hamburger.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    lenis.stop();
+    if (hamburger) {
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+    if (window.lenis) lenis.stop();
   }
   function closeMenu() {
+    if (!mobileMenu) return;
     mobileMenu.classList.remove('open');
     mobileMenu.setAttribute('aria-hidden', 'true');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    lenis.start();
+    if (hamburger) {
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+    if (window.lenis) lenis.start();
   }
 
-  if (hamburger) hamburger.addEventListener('click', openMenu);
-  if (mobileClose) mobileClose.addEventListener('click', closeMenu);
-  mobileLinks.forEach((l) => l.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  if (hamburger) {
+    hamburger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (mobileMenu && mobileMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+  if (mobileClose) {
+    mobileClose.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMenu();
+    });
+  }
+
+  mobileLinks.forEach((l) => {
+    l.addEventListener('click', (e) => {
+      const href = l.getAttribute('href');
+      // If clicking Home link (#hero, #top, /, index.html): smoothly scroll to top (0)
+      if (href === '#hero' || href === '#top' || href === '/' || href === 'index.html') {
+        e.preventDefault();
+        closeMenu();
+        setTimeout(() => {
+          if (window.lenis) {
+            window.lenis.start();
+            window.lenis.scrollTo(0, { duration: 1.2 });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 120);
+        return;
+      }
+      if (href && href.startsWith('#') && href !== '#') {
+        e.preventDefault();
+        closeMenu();
+        const targetEl = document.querySelector(href);
+        if (targetEl) {
+          setTimeout(() => {
+            if (window.lenis) {
+              window.lenis.start();
+              window.lenis.scrollTo(targetEl, { offset: -70, duration: 1.2 });
+            } else {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 120);
+        }
+        return;
+      }
+      closeMenu();
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  });
 
   /* ─────────────────────────────────────────────
      4.  TERMINAL CHIP  — cycling messages
      ───────────────────────────────────────────── */
   const messages = [
-    'mission@nova ~ $ T-minus 10 days',
+    'mission@nova ~ $ T-minus 9 days',
     'mission@nova ~ $ 12 clubs onboard',
     'mission@nova ~ $ countdown online',
     'mission@nova ~ $ launch pad: RIT',
@@ -857,37 +950,616 @@
   initDitherText();
 
   /* ─────────────────────────────────────────────
-     9.  PRE-EVENTS GRID  — build cards from data
+  /* ─────────────────────────────────────────────
+     9.  EVENTS DATABASE & EVENT DETAILS OPENING CARD ENGINE
+     Full details for Inauguration, Pre-Events, and Main Online Events
      ───────────────────────────────────────────── */
-  const preEvents = [
-    { title: 'Spatial Data Analytics', type: 'Online Workshop', date: '12 Sep 2026', time: '7:30 PM', fee: '₹80', link: 'https://tinyurl.com/nova5-o-spatial-analysis', assoc: 'NOVA 5.0' },
-    { title: 'History of Space Exploration', type: 'Online Talk', date: '16 Sep 2026', time: '7:30 PM', fee: 'Free', link: 'https://forms.gle/ea1BpSaYPXErbpai7', assoc: 'Celestia NSSCE' },
-    { title: 'Introduction to Rocket Propulsion', type: 'Online Talk', date: '18 Sep 2026', time: '7:30 PM', fee: 'Free', link: 'https://forms.gle/VXgj5pnN1nVyNTCVA', assoc: 'ASRIT · ISTE SC RIT' },
-    { title: 'Cosmic Commentary', type: 'Online Competition', date: '21 Sep 2026', time: '8:00 PM', fee: '₹15', link: 'https://forms.gle/gwpaYS9AX6xbyhXD8', assoc: 'Vyom · CEP' },
-    { title: 'Understanding Stellar Formation', type: 'Online Lecture', date: '23 Sep 2026', time: '8:00 PM', fee: '₹10', link: 'https://forms.gle/SdJtni8yeHFkGmWV9', assoc: 'Celestials · IIST' },
-    { title: 'Astrothon — Ideas Beyond Infinity', type: 'Team Competition', date: '2 Oct 2026', time: 'All day', fee: '₹60/team', link: 'https://forms.gle/nJcYK5SjzcBCQfas8', assoc: 'AstroCET' },
-    { title: 'Satellite Remote Sensing', type: 'Talk Session', date: '28 Sep 2026', time: '8:00 PM', fee: 'Free', link: 'https://forms.gle/SzKELfv6HzkeK8is8', assoc: 'Calypso · GCEK' },
-    { title: 'Space Environment & Materials', type: 'Online Talk', date: '30 Sep 2026', time: '8:00 PM', fee: '₹10', link: 'https://forms.gle/qqsqz4HTdce4mjxA7', assoc: 'NEXORA · LBSITW' },
-  ];
+  const EVENTS_DATABASE = {
+    'inauguration': {
+      id: 'inauguration',
+      category: 'ONLINE INAUGURATION',
+      type: 'Inaugural Ceremony & Keynote',
+      title: 'Online Inaugural Ceremony & Talk Session',
+      assoc: 'ASRIT, RIT in collaboration with Institution’s Innovation Council (IIC)',
+      quote: 'Join us as NOVA 5.0 officially begins, bringing together space enthusiasts, ideas, and a shared curiosity about the universe.',
+      date: '05 October 2026',
+      time: '7:00 PM IST',
+      mode: 'Online (Live Stream)',
+      fee: 'Free Access',
+      cert: 'Provided for All Attendees',
+      ktu: false,
+      poster: 'Posters/Online Inauguration/Inaugural Cermony and Talk Session.jpeg',
+      speaker: {
+        label: 'CHIEF GUEST & KEYNOTE SPEAKER',
+        name: 'Dr. Tirtha Pratim Das',
+        desig: 'Director, Space Science Programme, ISRO HQ'
+      },
+      desc: 'NOVA 5.0 is a flagship collaborative initiative united by the space clubs of premier engineering colleges across Kerala, hosted by ASRIT at Rajiv Gandhi Institute of Technology (RIT), Kottayam, in collaboration with the Institution\'s Innovation Council (IIC). The journey officially commences with the grand ceremonial launch followed by an insightful keynote session by Dr. Tirtha Pratim Das, Director of Space Science Programme at ISRO Headquarters.',
+      extra: [
+        'Interactive Q&A session with ISRO Director after the inaugural address',
+        'Official unveiling of NOVA 5.0 inter-collegiate mission roadmap and timeline',
+        'Participation open to all students, faculty, and astronomy enthusiasts across India'
+      ],
+      queries: [
+        { name: 'Jonadhan O Abraham', phone: '+91 73066 45286' },
+        { name: 'Sana B Salam', phone: '+91 94465 03823' }
+      ],
+      link: 'https://forms.gle/ST9f3BTZqgW9uEug6',
+      ig: 'https://www.instagram.com/p/Dd_zzciIIxo/?stkn=MWw5cGFibnFrYzJucQ=='
+    },
+    'pre-1': {
+      id: 'pre-1',
+      category: 'PRE-EVENT 01',
+      type: 'Online Workshop',
+      title: 'Spatial Data Analytics',
+      assoc: 'Presented by NOVA 5.0',
+      quote: 'Data helps us understand the world. Spatial data helps us understand where it happens.',
+      date: '12 September 2026',
+      time: '7:30 PM IST',
+      mode: 'Online Interactive Workshop',
+      fee: '₹80 (Early Bird / Discounted)',
+      cert: 'Official Certificate Provided',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.41 PM.jpeg',
+      speaker: {
+        label: 'WORKSHOP LEAD',
+        name: 'Vyasan J',
+        desig: 'CEO & Founder, TransEduverse · Data Engineering Technologist'
+      },
+      desc: 'Explore how spatial data and geospatial analytics uncover hidden geographic patterns, telemetry coordinates, and real-world earth phenomena, with state-of-the-art applications extending to satellite observation, astrophysics, and remote mapping.',
+      extra: [
+        'Hands-on walkthrough using modern geospatial data tools and Python libraries',
+        'Real-world datasets covering remote earth observation and spatial coordinates',
+        'E-certificates provided to all registered participants'
+      ],
+      queries: [
+        { name: 'Jonadhan O Abraham', phone: '+91 73066 45286' },
+        { name: 'Sana B Salam', phone: '+91 94465 03823' }
+      ],
+      link: 'https://tinyurl.com/nova5-o-spatial-analysis',
+      ig: 'https://www.instagram.com/p/Dc8i_jxIxhu/?stkn=Mnd3ZzZpdnc4djJx'
+    },
+    'pre-2': {
+      id: 'pre-2',
+      category: 'PRE-EVENT 02',
+      type: 'Online Talk Session',
+      title: 'History of Space Exploration',
+      assoc: 'In association with Celestia NSSCE',
+      quote: 'The journey beyond Earth is a story of curiosity, courage, and discovery.',
+      date: '16 September 2026',
+      time: '7:30 PM IST',
+      mode: 'Online Talk Session',
+      fee: 'Free Registration',
+      cert: 'Provided for All Attendees',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM.jpeg',
+      speaker: {
+        label: 'DISTINGUISHED SPEAKER',
+        name: 'Dr. Sudeep U',
+        desig: 'Professor, NSS College of Engineering'
+      },
+      desc: 'Explore the remarkable journey of humanity beyond Earth — from humanity\'s earliest cosmic inquiries to Sputnik, Apollo lunar landings, deep space probes (Voyager, James Webb), and the ongoing race for Mars and Artemis lunar bases.',
+      extra: [
+        'Comprehensive timeline analysis of key technological milestones',
+        'The geopolitics, engineering hurdles, and breakthroughs of human spaceflight',
+        'E-certificates provided to all attendees'
+      ],
+      queries: [
+        { name: 'Nandana', phone: '+91 87145 55711' },
+        { name: 'Nandana Biju', phone: '+91 70126 50464' }
+      ],
+      link: 'https://forms.gle/ea1BpSaYPXErbpai7',
+      ig: 'https://www.instagram.com/p/DdBzWyfhmTR/?stkn=eTQ5dGxjeHozNTg0'
+    },
+    'pre-3': {
+      id: 'pre-3',
+      category: 'PRE-EVENT 03',
+      type: 'Online Talk Session',
+      title: 'Introduction to Rocket Propulsion',
+      assoc: 'In association with ASRIT · ISTE SC RIT',
+      quote: 'The journey to space begins with the power that takes us there.',
+      date: '18 September 2026',
+      time: '7:30 PM IST',
+      mode: 'Online Talk Session',
+      fee: 'Free Registration',
+      cert: 'Provided for All Attendees',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (1).jpeg',
+      speaker: {
+        label: 'GUEST SPEAKER',
+        name: 'Anurag S',
+        desig: 'Assistant Professor, Mount Zion College of Engineering · NITK Alumnus'
+      },
+      desc: 'Ever wondered how rockets generate millions of pounds of thrust to break free from Earth\'s gravitational pull? Join us for an engaging masterclass covering Newton\'s third law, chemical rocket propulsion, solid vs. liquid vs. cryogenic propellant cycles, de Laval nozzle expansion, and launch vehicle staging.',
+      extra: [
+        'Thermodynamics of combustion chambers and supersonic exhaust expansion',
+        'Specific impulse (Isp), mass ratio, and Tsiolkovsky rocket equation fundamentals',
+        'Q&A session on aerospace career pathways and rocketry research'
+      ],
+      queries: [
+        { name: 'Jonadhan O Abraham', phone: '+91 73066 45286' },
+        { name: 'Sana B Salam', phone: '+91 94465 03823' }
+      ],
+      link: 'https://forms.gle/VXgj5pnN1nVyNTCVA',
+      ig: 'https://www.instagram.com/p/DdWSa0pzm9u/?stkn=MnBrZmI2bWV1Z2Nj'
+    },
+    'pre-4': {
+      id: 'pre-4',
+      category: 'PRE-EVENT 04',
+      type: 'Online Competition',
+      title: 'Cosmic Commentary: A Cosmic Image Captioning Competition',
+      assoc: 'In association with Vyom Space Club, CEP',
+      quote: 'Same Universe. Different Perspectives. Think cosmic. Caption creatively. Make us laugh.',
+      date: '21 September 2026',
+      time: '8:00 PM IST',
+      mode: 'Online (Google Forms Submission)',
+      fee: '₹15 per entry',
+      cert: 'Prize Pool: ₹300 + Winner Certificates',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (2).jpeg',
+      speaker: null,
+      desc: 'Get ready to see deep space through a witty, creative lens! Participants receive unexpected and fascinating space photographs (astronaut bloopers, cosmic illusions, telescope artifacts) and compete to craft the funniest, most original, and witty caption.',
+      extra: [
+        'Individual participation — submit your creative entry online',
+        'Judged on humour, astronomical wit, originality, and creative relevance',
+        'Top submissions featured across NOVA 5.0 and partner club media channels'
+      ],
+      queries: [
+        { name: 'Anaan Shaji', phone: '+91 96338 21241' },
+        { name: 'Anamika V S', phone: '+91 82816 10358' }
+      ],
+      link: 'https://forms.gle/gwpaYS9AX6xbyhXD8',
+      ig: 'https://www.instagram.com/p/DdY3OCPzHWc/?stkn=N282amk2dHBudXlw'
+    },
+    'pre-5': {
+      id: 'pre-5',
+      category: 'PRE-EVENT 05',
+      type: 'Online Lecture',
+      title: 'Understanding Stellar Formation',
+      assoc: 'In association with Celestials, IIST',
+      quote: 'Every star has a story that begins in the vastness of space.',
+      date: '23 September 2026',
+      time: '8:00 PM IST',
+      mode: 'Online Academic Lecture',
+      fee: '₹10',
+      cert: 'Official Certificate Provided',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM.jpeg',
+      speaker: {
+        label: 'GUEST PROFESSOR',
+        name: 'Dr. D. Jagadheep',
+        desig: 'Professor, Indian Institute of Space Science and Technology (IIST), Thiruvananthapuram'
+      },
+      desc: 'Delve into the physics of how stars ignite from turbulent giant molecular clouds in interstellar space. Professor Jagadheep from IIST unpacks gravitational Jeans instability, protostellar accretion discs, Herbig-Haro jets, nuclear fusion ignition, and the Hertzsprung-Russell life track of diverse stellar masses.',
+      extra: [
+        'Authoritative academic insights from India\'s premier space institute (IIST)',
+        'Spectroscopic evidence, infrared telescope observations, and stellar astrophysics',
+        'Certificates provided to all verified attendees'
+      ],
+      queries: [
+        { name: 'Ranvir Singh', phone: '+91 77809 16230' },
+        { name: 'Kaarthick L Rajakumar', phone: '+91 95664 26689' }
+      ],
+      link: 'https://forms.gle/SdJtni8yeHFkGmWV9',
+      ig: 'https://www.instagram.com/p/DdeBtMaTf_0/?stkn=MXY5eHRhYm0zb2J0Zw=='
+    },
+    'pre-6': {
+      id: 'pre-6',
+      category: 'PRE-EVENT 06',
+      type: 'Team Ideathon',
+      title: 'Astrothon — Ideas Beyond Infinity',
+      assoc: 'In association with AstroCET, CET',
+      quote: 'Great ideas are the first step towards shaping the future of space exploration.',
+      date: '02 October 2026',
+      time: 'Full Day Event Submission',
+      mode: 'Online Team Ideathon & Presentation',
+      fee: '₹60 per team (3 Members)',
+      cert: 'Prize Pool: ₹600 + Winner Certificates',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (1).jpeg',
+      speaker: null,
+      desc: 'Ready to engineer visionary solutions for humanity’s next frontier? Teams of 3 choose from three pressing mission challenges and formulate creative, practical, and sustainable solutions utilizing AI/ML, simulation, software, or hardware architectures.',
+      extra: [
+        'Challenge 1: Zero Waste Space (orbital debris cleanup & closed-loop life support)',
+        'Challenge 2: Interplanetary Space Cargo Transportation (propulsion & logistics)',
+        'Challenge 3: Space Farming (hydroponics, lunar/Martian regolith agriculture)',
+        'Key Deadlines: Sep 25 (Abstract submission begins), Sep 28 (PPT submission window)',
+        'Working hardware prototype not mandatory — pure innovation & feasibility matter!'
+      ],
+      queries: [
+        { name: 'Euwan', phone: '+91 62356 64564' },
+        { name: 'Ananthakrishna', phone: '+91 89210 84670' }
+      ],
+      link: 'https://forms.gle/nJcYK5SjzcBCQfas8',
+      ig: 'https://www.instagram.com/p/DdioA6TCJkf/?img_index=1&stkn=MWkzaHEyc25mN3RyMg=='
+    },
+    'pre-7': {
+      id: 'pre-7',
+      category: 'PRE-EVENT 07',
+      type: 'Talk Session',
+      title: 'Satellite Remote Sensing',
+      assoc: 'In association with Calypso, GCEK',
+      quote: 'From pixels to possibilities — unlock the power of satellite data to understand our changing world.',
+      date: '28 September 2026',
+      time: '8:00 PM IST',
+      mode: 'Online Talk Session',
+      fee: 'Free Registration',
+      cert: 'Provided for All Attendees',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (2).jpeg',
+      speaker: {
+        label: 'INDUSTRY EXPERT',
+        name: 'Lekshmi S',
+        desig: 'Remote Sensing Associate, Zeta Space'
+      },
+      desc: 'Ever wondered how raw multispectral satellite sensor data is transformed into high-impact planetary intelligence? Discover the foundational principles of optical, infrared, and synthetic aperture radar (SAR) remote sensing, and how earth observation data drives climate research, disaster management, and urban modeling.',
+      extra: [
+        'Real-world case studies in space data processing from Zeta Space',
+        'Sensor bands, NDVI vegetation indexing, and geospatial pipeline architecture',
+        'Certificates provided to all attendees'
+      ],
+      queries: [
+        { name: 'Abhina E', phone: '+91 91881 69402' },
+        { name: 'Jeyas C', phone: '+91 82899 09017' }
+      ],
+      link: 'https://forms.gle/SzKELfv6HzkeK8is8',
+      ig: 'https://www.instagram.com/p/DdtrNGwIB0b/?stkn=bDZ4ejN0YWRrYm1s'
+    },
+    'pre-8': {
+      id: 'pre-8',
+      category: 'PRE-EVENT 08',
+      type: 'Online Talk Session',
+      title: 'Space Environment and Materials for Spacecraft',
+      assoc: 'In association with NEXORA, LBSITW',
+      quote: 'Space does not forgive weakness; every material that travels beyond Earth must be built to endure.',
+      date: '30 September 2026',
+      time: '8:00 PM IST',
+      mode: 'Online Talk Session',
+      fee: '₹10',
+      cert: 'Official Certificate Provided',
+      ktu: false,
+      poster: 'Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.44 PM.jpeg',
+      speaker: {
+        label: 'AEROSPACE PROFESSOR',
+        name: 'Dr. P. Chakravarthy',
+        desig: 'Professor, Department of Aerospace Engineering, IIST'
+      },
+      desc: 'What does it take to manufacture a spacecraft skin that withstands atomic oxygen erosion, ionizing solar flare radiation, micrometeoroid impacts, and thermal shocks from -150°C in shadow to +150°C in direct sunlight? Learn about advanced carbon-carbon composites, nickel superalloys, and thermal protection systems from IIST Professor Chakravarthy.',
+      extra: [
+        'Material behavior under extreme ultra-high vacuum outgassing conditions',
+        'Aerospace engineering insights into re-entry heat shields and ablative tiles',
+        'Certificates awarded to all verified participants'
+      ],
+      queries: [
+        { name: 'Afra B', phone: '+91 75589 48838' },
+        { name: 'Gopika S Nair', phone: '+91 90615 23526' }
+      ],
+      link: 'https://forms.gle/qqsqz4HTdce4mjxA7',
+      ig: 'https://www.instagram.com/p/Dd1gXBwzk9s/?stkn=NzVjbWdheWYxeGdj'
+    },
+    'main-1': {
+      id: 'main-1',
+      category: 'MAIN EVENT — ONLINE',
+      type: 'Online Workshop',
+      title: 'Introduction to Rocketry: Design, Fabrication, Avionics',
+      assoc: 'In association with Institution’s Innovation Council (IIC)',
+      quote: 'The only way of discovering the limits of the possible is to venture a little way past them into the impossible. — Arthur C. Clarke',
+      date: '17 October 2026',
+      time: '7:30 PM IST',
+      mode: 'Online Interactive Workshop',
+      fee: '₹30',
+      cert: 'KTU Activity Points + Certificate for All',
+      ktu: true,
+      poster: 'Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.44 PM.jpeg',
+      speaker: {
+        label: 'WORKSHOP PRESENTED BY',
+        name: 'Rocketry Engineering Team',
+        desig: 'Astral Space Club, Government Engineering College Thrissur (GECT)'
+      },
+      desc: 'An intensive, hands-on workshop covering the three foundational pillars of modern rocketry: 1. Aerodynamic design and stability simulation using OpenRocket; 2. Structural fabrication, lightweight composites, motor casings, and fin alignment; 3. Flight avionics, altimeter telemetry, sensor logging, and dual-deployment parachute ejection systems.',
+      extra: [
+        'Eligible for KTU Activity Points for participating engineering students',
+        'Live demonstration of flight trajectory calculations and apogee prediction',
+        'Comprehensive rocketry resource kit & guidance for student rocketry teams'
+      ],
+      queries: [
+        { name: 'Cieniya', phone: '+91 85940 93808' },
+        { name: 'Amal', phone: '+91 82898 82877' }
+      ],
+      link: 'https://forms.gle/7GyeoLo9LEGg8M9X7',
+      ig: 'https://www.instagram.com/p/DeT-zZPzSwY/?obrf=aGpwOGRlanJjYjFq'
+    },
+    'main-2': {
+      id: 'main-2',
+      category: 'MAIN EVENT — ONLINE',
+      type: 'Online Workshop',
+      title: 'Cosmic Navigator: Journey Using Celestia',
+      assoc: 'In association with Institution’s Innovation Council (IIC)',
+      quote: 'Somewhere, something incredible is waiting to be known. — Carl Sagan',
+      date: '18 October 2026',
+      time: '7:30 PM IST',
+      mode: 'Online Interactive Workshop',
+      fee: '₹20',
+      cert: 'KTU Activity Points + Certificate for All',
+      ktu: true,
+      poster: 'Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.43 PM.jpeg',
+      speaker: {
+        label: 'ASTRONOMY EDUCATOR',
+        name: 'Jayakrishnan K',
+        desig: 'Joint Secretary, Breakthrough Science Society, Thiruvananthapuram Chapter'
+      },
+      desc: 'Ever wanted to chart paths through interstellar space, orbit Jupiter’s moons, and observe solar eclipses from alien worlds? Learn to command Celestia, an open-source real-time 3D space simulator used by astronomers, educators, and space agencies worldwide to model planetary orbits, spacecraft trajectories, and deep sky catalogues.',
+      extra: [
+        'Eligible for KTU Activity Points for participating engineering students',
+        'Learn how to track real spacecraft trajectories (Cassini, New Horizons, Chandrayaan)',
+        'Installation files and astronomy scripts provided to all attendees'
+      ],
+      queries: [
+        { name: 'Eldho Kuriakose', phone: '+91 94471 48243' },
+        { name: 'Adithya P S', phone: '+91 89219 06564' }
+      ],
+      link: 'https://bit.ly/Nova5-o-CosmicNavigator',
+      ig: 'https://www.instagram.com/p/DeWjIQTIfZg/?dlrf=MTkyY296aWkydHU4bQ=='
+    }
+  };
 
+  // Render Combined Pre-Events (Posters + Details)
   const preGrid = document.getElementById('pre-events-grid');
   if (preGrid) {
-    preEvents.forEach((ev) => {
+    preGrid.innerHTML = '';
+    const preIds = ['pre-1', 'pre-2', 'pre-3', 'pre-4', 'pre-5', 'pre-6', 'pre-7', 'pre-8'];
+    preIds.forEach((id) => {
+      const ev = EVENTS_DATABASE[id];
+      if (!ev) return;
       const card = document.createElement('div');
       card.className = 'pre-event-card';
+      card.setAttribute('data-event-id', ev.id);
       card.innerHTML = `
-        <span class="mono-label accent">${ev.type.toUpperCase()} · ${ev.date.toUpperCase()}</span>
-        <h3 class="pre-event-title">${ev.title}</h3>
-        <div class="pre-event-meta">
-          <span class="tag">${ev.time}</span>
-          <span class="tag">${ev.fee}</span>
-          <span class="tag">${ev.assoc}</span>
+        <div class="pre-event-poster-wrap" data-event-id="${ev.id}" role="button" tabindex="0" aria-label="View ${ev.title} details">
+          <img src="${ev.poster}" alt="${ev.title} poster" class="pre-event-poster" loading="lazy" />
+          <div class="pre-event-poster-badge">
+            <span class="mono-label">${ev.type}</span>
+          </div>
         </div>
-        <a href="${ev.link}" target="_blank" rel="noopener" class="pre-event-link">Register →</a>
+        <div class="pre-event-body">
+          <div class="pre-event-date-row">
+            <span class="mono-label accent">${ev.date}</span>
+            <span class="pre-event-fee-badge">${ev.fee}</span>
+          </div>
+          <h3 class="pre-event-title" data-event-id="${ev.id}" role="button" tabindex="0">${ev.title}</h3>
+          <p class="pre-event-assoc-line mono-label dim">${ev.assoc}</p>
+          <div class="pre-event-actions">
+            <button type="button" class="btn-more-details" data-event-id="${ev.id}" aria-label="Open full details for ${ev.title}">
+              <span>More Details</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </button>
+            <a href="${ev.link}" target="_blank" rel="noopener" class="pre-event-reg-btn">Register →</a>
+          </div>
+        </div>
       `;
       preGrid.appendChild(card);
     });
   }
+
+  // ──── EVENT DETAILS MODAL ENGINE ────
+  const eventModal = document.getElementById('event-modal');
+  const eventModalCard = document.getElementById('event-modal-card');
+  const eventModalClose = document.getElementById('event-modal-close');
+
+  function openEventModal(eventId) {
+    const data = EVENTS_DATABASE[eventId];
+    if (!data || !eventModal) return;
+
+    // Poster Column setup
+    const posterCol = document.getElementById('modal-poster-col');
+    const posterImg = document.getElementById('modal-poster-img');
+    const posterZoom = document.getElementById('modal-poster-zoom');
+    const posterWrap = document.getElementById('modal-poster-wrap');
+    const posterActions = document.getElementById('modal-poster-actions');
+
+    const oldBadge = posterCol.querySelector('.modal-no-poster-badge');
+    if (oldBadge) oldBadge.remove();
+
+    if (data.poster) {
+      posterImg.src = data.poster;
+      posterImg.alt = data.title + ' official poster';
+      posterZoom.href = data.poster;
+      posterWrap.style.display = 'flex';
+      posterActions.style.display = 'block';
+    } else {
+      posterWrap.style.display = 'none';
+      posterActions.style.display = 'none';
+      const badge = document.createElement('div');
+      badge.className = 'modal-no-poster-badge';
+      badge.innerHTML = `
+        <div class="modal-no-poster-icon">🚀</div>
+        <h4 class="modal-no-poster-title">NOVA 5.0</h4>
+        <span class="modal-no-poster-sub mono-label">OFFICIAL INAUGURAL CEREMONY</span>
+        <div style="margin-top:16px; padding:12px 16px; background:rgba(25,227,255,0.08); border-radius:8px; border:1px solid rgba(25,227,255,0.25);">
+          <span style="font-size:12px; color:#FFFFFF; font-weight:700; display:block;">KEYNOTE TALK SESSION</span>
+          <span style="font-size:11px; color:var(--accent);">Dr. Tirtha Pratim Das · ISRO HQ</span>
+        </div>
+      `;
+      posterCol.prepend(badge);
+    }
+
+    // Header Badges & Titles
+    document.getElementById('modal-category').textContent = data.category;
+    document.getElementById('modal-mode').textContent = data.mode.toUpperCase();
+    
+    const ktuBadge = document.getElementById('modal-ktu-badge');
+    if (data.ktu) {
+      ktuBadge.style.display = 'inline-flex';
+    } else {
+      ktuBadge.style.display = 'none';
+    }
+
+    document.getElementById('modal-event-title').textContent = data.title;
+    document.getElementById('modal-event-assoc').textContent = data.assoc;
+
+    // Quote
+    const quoteEl = document.getElementById('modal-event-quote');
+    if (data.quote) {
+      quoteEl.textContent = `“${data.quote}”`;
+      quoteEl.style.display = 'block';
+    } else {
+      quoteEl.style.display = 'none';
+    }
+
+    // Quick Facts
+    document.getElementById('modal-date').textContent = data.date;
+    document.getElementById('modal-time').textContent = data.time;
+    document.getElementById('modal-fee').textContent = data.fee;
+    document.getElementById('modal-cert').textContent = data.cert || 'Provided';
+
+    // Speaker Section
+    const speakerCard = document.getElementById('modal-speaker-card');
+    if (data.speaker) {
+      document.getElementById('modal-speaker-lbl').textContent = data.speaker.label;
+      document.getElementById('modal-speaker-name').textContent = data.speaker.name;
+      document.getElementById('modal-speaker-desig').textContent = data.speaker.desig;
+      speakerCard.style.display = 'flex';
+    } else {
+      speakerCard.style.display = 'none';
+    }
+
+    // Description & Extra Bullet Points
+    document.getElementById('modal-description').textContent = data.desc;
+    const extraContainer = document.getElementById('modal-extra-details');
+    extraContainer.innerHTML = '';
+    if (data.extra && data.extra.length) {
+      data.extra.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'modal-extra-item';
+        div.textContent = `• ${item}`;
+        extraContainer.appendChild(div);
+      });
+      extraContainer.style.display = 'flex';
+    } else {
+      extraContainer.style.display = 'none';
+    }
+
+    // Coordinators & Queries
+    const contactsList = document.getElementById('modal-contacts-list');
+    contactsList.innerHTML = '';
+    if (data.queries && data.queries.length) {
+      data.queries.forEach(q => {
+        const cleanPhone = q.phone.replace(/[^0-9+]/g, '');
+        const a = document.createElement('a');
+        a.href = `tel:${cleanPhone}`;
+        a.className = 'modal-contact-chip';
+        a.setAttribute('aria-label', `Call coordinator ${q.name} at ${q.phone}`);
+        a.innerHTML = `<span>📞</span> <span><strong>${q.name}:</strong> ${q.phone}</span>`;
+        contactsList.appendChild(a);
+      });
+      document.getElementById('modal-contact-section').style.display = 'flex';
+    } else {
+      document.getElementById('modal-contact-section').style.display = 'none';
+    }
+
+    // Action Buttons
+    document.getElementById('modal-register-btn').href = data.link;
+    const igBtn = document.getElementById('modal-ig-btn');
+    if (data.ig) {
+      igBtn.href = data.ig;
+      igBtn.style.display = 'inline-flex';
+    } else {
+      igBtn.style.display = 'none';
+    }
+
+    // Fade In Effect Opening
+    eventModal.classList.remove('closing');
+    eventModal.classList.add('open');
+    eventModal.removeAttribute('aria-hidden');
+    if (eventModalCard) {
+      eventModalCard.scrollTop = 0;
+      eventModalCard.focus();
+    }
+    if (window.lenis) window.lenis.stop();
+  }
+
+  function closeEventModal() {
+    if (!eventModal || !eventModal.classList.contains('open')) return;
+    // Fade Out Effect Closing
+    eventModal.classList.add('closing');
+    setTimeout(() => {
+      eventModal.classList.remove('open', 'closing');
+      eventModal.setAttribute('aria-hidden', 'true');
+      if (window.lenis) window.lenis.start();
+    }, 280);
+  }
+
+  if (eventModalClose) {
+    eventModalClose.addEventListener('click', closeEventModal);
+  }
+
+  if (eventModal) {
+    eventModal.addEventListener('click', (e) => {
+      if (e.target === eventModal) {
+        closeEventModal();
+      }
+    });
+
+    // Forward backdrop wheel scrolling into the card
+    eventModal.addEventListener('wheel', (e) => {
+      if (e.target === eventModal && eventModalCard) {
+        eventModalCard.scrollTop += e.deltaY;
+      }
+    }, { passive: true });
+  }
+
+  if (eventModalCard) {
+    // Stop propagation so Lenis does not intercept card scrolling
+    eventModalCard.addEventListener('wheel', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+
+    eventModalCard.addEventListener('touchmove', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && eventModal && eventModal.classList.contains('open')) {
+      closeEventModal();
+    }
+  });
+
+  // Event Delegation for Opening Modal Cards
+  document.addEventListener('click', (e) => {
+    // Prevent modal triggering if user clicked an external registration link
+    if (e.target.closest('a[href*="forms.gle"]') || e.target.closest('a[href*="tinyurl.com"]') || e.target.closest('a[href*="bit.ly"]')) {
+      return;
+    }
+
+    const trigger = e.target.closest('[data-event-id]');
+    if (trigger) {
+      const eventId = trigger.getAttribute('data-event-id');
+      if (eventId && EVENTS_DATABASE[eventId]) {
+        e.preventDefault();
+        openEventModal(eventId);
+      }
+    }
+  });
+
+  // Deep-link direct opening e.g. index.html?event=pre-1 or ?event=inauguration or ?scroll=events
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventParam = urlParams.get('event');
+    if (eventParam && EVENTS_DATABASE[eventParam]) {
+      setTimeout(() => openEventModal(eventParam), 400);
+    }
+    if (urlParams.get('scroll') === 'events') {
+      setTimeout(() => {
+        if (window.lenis) {
+          window.lenis.scrollTo('#events', { immediate: true });
+        } else {
+          const el = document.getElementById('events');
+          if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }, 400);
+    }
+  } catch (err) {}
 
   /* ─────────────────────────────────────────────
      10.  LOGO TILES  — grayscale ↔ color on hover

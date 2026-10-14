@@ -22,7 +22,7 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class="at-hero-top">
   <!-- Skip to content -->
   <a href="#main-content" class="skip-link">Skip to content</a>
 
@@ -38,22 +38,27 @@
   <!-- ═══════════════════ NAVBAR ═══════════════════ -->
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="NOVA 5.0 Home">
+      <a href="#hero" class="nav-logo" aria-label="NOVA 5.0 Home">
         <img src="Logos/NOVA.png" alt="NOVA 5.0 logo" class="nav-logo-img" />
         <span class="nav-logo-text">NOVA<span class="accent">5.0</span></span>
       </a>
 
       <div class="nav-pill" id="nav-pill">
-        <a href="/" class="nav-link active" id="nav-home">Home</a>
+        <a href="#hero" class="nav-link active" id="nav-home">Home</a>
         <a href="#about" class="nav-link" id="nav-about">About</a>
         <a href="#events" class="nav-link" id="nav-events">Events</a>
         <a href="#coordinators" class="nav-link" id="nav-coords">Clubs</a>
-        <a href="/glimpses" class="nav-link" id="nav-glimpses">Glimpses</a>
-        <a href="/gallery" class="nav-link" id="nav-gallery">Gallery</a>
+        <a href="glimpses.html" class="nav-link" id="nav-glimpses">Glimpses</a>
+        <a href="gallery.html" class="nav-link" id="nav-gallery">Gallery</a>
         <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
       </div>
 
       <div class="nav-right">
+        <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="nav-register-btn hide-mobile" aria-label="Register for NOVA 5.0">
+          <span class="btn-glow-streak"></span>
+          <span>Register</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
         <div class="terminal-chip" id="terminal-chip" aria-live="off" aria-atomic="true">
           <span class="terminal-dot"></span>
           <span class="terminal-text" id="terminal-text">mission@nova ~ $ T-minus 10 days</span>
@@ -80,12 +85,12 @@
       <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">✕</button>
     </div>
     <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href="/" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">01</span><span class="mob-nav-text">Home</span></a>
+      <a href="#hero" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">01</span><span class="mob-nav-text">Home</span></a>
       <a href="#about" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">02</span><span class="mob-nav-text">About</span></a>
       <a href="#events" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">03</span><span class="mob-nav-text">Events</span></a>
       <a href="#coordinators" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">04</span><span class="mob-nav-text">Clubs</span></a>
-      <a href="/glimpses" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">05</span><span class="mob-nav-text">Glimpses</span></a>
-      <a href="/gallery" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">06</span><span class="mob-nav-text">Gallery</span></a>
+      <a href="glimpses.html" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">05</span><span class="mob-nav-text">Glimpses</span></a>
+      <a href="gallery.html" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">06</span><span class="mob-nav-text">Gallery</span></a>
       <a href="#contact" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">07</span><span class="mob-nav-text">Contact</span></a>
       <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="mobile-nav-link register-link">Register Now →</a>
     </nav>
@@ -155,7 +160,24 @@
         <div class="hero-nova-brand">
           <img src="Logos/NOVA.png" alt="NOVA" class="hero-nova-logo" />
         </div>
-        <h1 class="hero-college-name">RAJIV GANDHI INSTITUTE OF TECHNOLOGY KOTTAYAM</h1>
+        <h1 class="hero-college-name"><b>RAJIV GANDHI INSTITUTE OF TECHNOLOGY KOTTAYAM</b></h1>
+        <div class="hero-cta-wrap">
+          <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="hero-register-btn" id="hero-register-btn" aria-label="Register Now for NOVA 5.0">
+            <span class="btn-ambient-glow"></span>
+            <span class="btn-glow-streak"></span>
+            <span class="btn-star-icon" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
+              </svg>
+            </span>
+            <span class="btn-text">REGISTER NOW</span>
+            <span class="btn-arrow-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -296,10 +318,15 @@
             <div class="event-cat-line"></div>
           </div>
           <div class="inauguration-card bordered-block">
+            <div class="inaug-poster-wrap" data-event-id="inauguration" role="button" tabindex="0" aria-label="View Inauguration Poster and Details">
+              <img src="Posters/Online Inauguration/Inaugural Cermony and Talk Session.jpeg" alt="Online Inaugural Ceremony & Talk Session Poster" class="inaug-poster-img" loading="lazy" />
+              <div class="inaug-poster-badge">
+                <span class="mono-label">TALK SESSION</span>
+              </div>
+            </div>
             <div class="inaug-left">
-              <div class="inaug-icon">🎙️</div>
               <div>
-                <h3 class="inaug-title">Online Inaugural Ceremony & Talk Session</h3>
+                <h3 class="inaug-title" data-event-id="inauguration" role="button" tabindex="0">Online Inaugural Ceremony & Talk Session</h3>
                 <p class="inaug-desc">NOVA 5.0 officially begins with an inspiring talk by our Chief Guest from ISRO.</p>
                 <div class="inaug-meta">
                   <span class="inaug-meta-item"><strong>Chief Guest:</strong> Dr. Tirtha Pratim Das — Director, Space Science Programme, ISRO HQ</span>
@@ -312,6 +339,9 @@
               </div>
             </div>
             <div class="inaug-right">
+              <button class="btn-outline btn-sm btn-more-details" data-event-id="inauguration" aria-label="View Inauguration full details">
+                More Details ↗
+              </button>
               <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="btn-glow btn-sm">
                 <span class="btn-glow-streak"></span>
                 Register Now
@@ -325,25 +355,11 @@
           <div class="event-category-header">
             <span class="mono-label accent">PRE-EVENTS</span>
             <div class="event-cat-line"></div>
-            <span class="mono-label dim">Sep – Oct 2026</span>
+            <span class="mono-label dim">Sep – Oct 2026 · Combined Posters & Details</span>
           </div>
 
           <div class="events-grid" id="pre-events-grid">
-            <!-- Event cards inserted by JS -->
-          </div>
-
-          <!-- Posters strip -->
-          <div class="posters-strip" id="pre-posters-strip">
-            <div class="poster-scroll">
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.41 PM.jpeg" alt="Spatial Data Analytics poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM.jpeg" alt="History of Space Exploration poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (1).jpeg" alt="Introduction to Rocket Propulsion poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (2).jpeg" alt="Cosmic Commentary poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM.jpeg" alt="Understanding Stellar Formation poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (1).jpeg" alt="Astrothon poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (2).jpeg" alt="Satellite Remote Sensing poster" class="poster-thumb" loading="lazy" />
-              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.44 PM.jpeg" alt="Space Environment and Materials poster" class="poster-thumb" loading="lazy" />
-            </div>
+            <!-- Combined Poster + Details Event Cards inserted by JS -->
           </div>
         </div>
 
@@ -356,9 +372,12 @@
           </div>
 
           <div class="events-grid">
-            <div class="event-card">
+            <div class="event-card" data-event-id="main-1">
               <div class="event-card-inner">
-                <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.43 PM.jpeg" alt="Introduction to Rocketry poster" class="event-poster" loading="lazy" />
+                <div class="event-poster-clickable" data-event-id="main-1">
+                  <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.44 PM.jpeg" alt="Introduction to Rocketry poster" class="event-poster" loading="lazy" />
+                  <span class="event-poster-badge mono-label">CLICK FOR DETAILS</span>
+                </div>
                 <div class="event-card-content">
                   <span class="mono-label accent">WORKSHOP · OCT 17</span>
                   <h3 class="event-title">Introduction to Rocketry: Design, Fabrication, Avionics</h3>
@@ -366,16 +385,24 @@
                   <div class="event-meta-row">
                     <span class="tag">₹30</span>
                     <span class="tag">7:30 PM</span>
-                    <span class="tag">KTU Points</span>
+                    <span class="tag tag-ktu">KTU Points</span>
                   </div>
-                  <a href="https://forms.gle/7GyeoLo9LEGg8M9X7" target="_blank" rel="noopener" class="event-link">Register →</a>
+                  <div class="event-card-actions">
+                    <button class="btn-outline btn-sm btn-more-details" data-event-id="main-1">
+                      More Details ↗
+                    </button>
+                    <a href="https://forms.gle/7GyeoLo9LEGg8M9X7" target="_blank" rel="noopener" class="event-link">Register →</a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="event-card">
+            <div class="event-card" data-event-id="main-2">
               <div class="event-card-inner">
-                <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.44 PM.jpeg" alt="Cosmic Navigator poster" class="event-poster" loading="lazy" />
+                <div class="event-poster-clickable" data-event-id="main-2">
+                  <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.43 PM.jpeg" alt="Cosmic Navigator poster" class="event-poster" loading="lazy" />
+                  <span class="event-poster-badge mono-label">CLICK FOR DETAILS</span>
+                </div>
                 <div class="event-card-content">
                   <span class="mono-label accent">WORKSHOP · OCT 18</span>
                   <h3 class="event-title">Cosmic Navigator: Journey Using Celestia</h3>
@@ -383,9 +410,14 @@
                   <div class="event-meta-row">
                     <span class="tag">₹20</span>
                     <span class="tag">7:30 PM</span>
-                    <span class="tag">KTU Points</span>
+                    <span class="tag tag-ktu">KTU Points</span>
                   </div>
-                  <a href="https://bit.ly/Nova5-o-CosmicNavigator" target="_blank" rel="noopener" class="event-link">Register →</a>
+                  <div class="event-card-actions">
+                    <button class="btn-outline btn-sm btn-more-details" data-event-id="main-2">
+                      More Details ↗
+                    </button>
+                    <a href="https://bit.ly/Nova5-o-CosmicNavigator" target="_blank" rel="noopener" class="event-link">Register →</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -404,7 +436,7 @@
             <div class="offline-event-header">
               <div>
                 <h3 class="offline-title">NOVA 5.0 — Grand Day</h3>
-                <p class="offline-subtitle mono-label dim">08:00 – 17:30 · RIT Kottayam Campus · 80 Participants</p>
+                <p class="offline-subtitle mono-label dim">09:00 AM – 04:30 PM · 24 October 2026 · RIT Kottayam</p>
               </div>
               <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="btn-glow btn-sm">
                 <span class="btn-glow-streak"></span>
@@ -436,16 +468,38 @@
             </div>
 
             <div class="day-schedule">
-              <h4 class="schedule-title mono-label">DAY AT A GLANCE</h4>
+              <h4 class="schedule-title mono-label">DAY AT A GLANCE · 24 OCTOBER 2026</h4>
               <div class="schedule-grid">
-                <div class="schedule-item"><span class="sched-time">08:00</span><span class="sched-event">Registration & Kit Collection</span></div>
-                <div class="schedule-item"><span class="sched-time">09:00</span><span class="sched-event">Inauguration & Welcome</span></div>
-                <div class="schedule-item"><span class="sched-time">09:45</span><span class="sched-event">Keynote Talk</span></div>
-                <div class="schedule-item"><span class="sched-time">10:50</span><span class="sched-event">Workshop Sessions Begin (A & B parallel)</span></div>
-                <div class="schedule-item"><span class="sched-time">13:00</span><span class="sched-event">Lunch & Sponsor Stalls</span></div>
-                <div class="schedule-item"><span class="sched-time">14:00</span><span class="sched-event">Workshop Sessions Continue</span></div>
-                <div class="schedule-item"><span class="sched-time">16:20</span><span class="sched-event">Showcase — Best Results</span></div>
-                <div class="schedule-item"><span class="sched-time">16:50</span><span class="sched-event">Valedictory, Awards & Group Photo</span></div>
+                <div class="schedule-item">
+                  <span class="sched-time">09:00 – 10:00 AM</span>
+                  <span class="sched-event">Inauguration Ceremony</span>
+                  <span class="sched-desc">Welcome address and inaugural session with the Principal, Chief Guest, and other invited guests.</span>
+                </div>
+                <div class="schedule-item">
+                  <span class="sched-time">10:00 – 11:00 AM</span>
+                  <span class="sched-event">Chief Guest Talk Session</span>
+                  <span class="sched-desc">Address by the Chief Guest.</span>
+                </div>
+                <div class="schedule-item">
+                  <span class="sched-time">11:00 AM – 12:00 PM</span>
+                  <span class="sched-event">Guest Talk Session</span>
+                  <span class="sched-desc">Talk by the invited guest speaker.</span>
+                </div>
+                <div class="schedule-item">
+                  <span class="sched-time">12:00 – 01:00 PM</span>
+                  <span class="sched-event">Lunch Break</span>
+                  <span class="sched-desc">Networking, lunch break &amp; stalls.</span>
+                </div>
+                <div class="schedule-item">
+                  <span class="sched-time">01:00 – 04:00 PM</span>
+                  <span class="sched-event">Workshop Session</span>
+                  <span class="sched-desc">Hands-on parallel workshops: Astropy Telescope Data (Lab A) &amp; Escape Velocity Simulator (Lab B).</span>
+                </div>
+                <div class="schedule-item">
+                  <span class="sched-time">04:00 – 04:30 PM</span>
+                  <span class="sched-event">Closing Ceremony</span>
+                  <span class="sched-desc">Concluding remarks and formal closure of the event.</span>
+                </div>
               </div>
             </div>
           </div>
@@ -612,6 +666,47 @@
           <p>Rajiv Gandhi Institute of Technology (RIT), Kottayam, is a Government Engineering College fully owned and run by the Government of Kerala. Established in 1991 and named after former Prime Minister Rajiv Gandhi, the institution was founded with the vision of developing a centre for higher technical education and research. Over the years, RIT has grown into one of Kerala's leading technical institutions, supported by extensive infrastructure and a strong academic environment.</p>
           <p style="margin-top:1rem;">Affiliated with APJ Abdul Kalam Technological University (KTU) and with its programmes approved by AICTE, RIT offers undergraduate, postgraduate and research opportunities across engineering, architecture and computer applications.</p>
         </div>
+
+        <!-- Venue Location & Interactive Map -->
+        <div class="rit-venue-block bordered-block reveal-up" style="--delay:0.3s">
+          <div class="rit-venue-header">
+            <div class="rit-venue-info">
+              <span class="rit-venue-tag mono-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                CAMPUS VENUE
+              </span>
+              <h3 class="rit-venue-name">Rajiv Gandhi Institute of Technology</h3>
+              <p class="rit-venue-address">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="venue-pin-icon" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Rajiv Gandhi Institute of Technology, Vellore P.O, Pampady, Kottayam, Kerala 686501</span>
+              </p>
+            </div>
+            <div class="rit-venue-actions">
+              <a href="https://www.rit.ac.in/" target="_blank" rel="noreferrer" class="rit-visit-link" aria-label="Visit RIT website">
+                <span>Visit RIT</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rit-map-pin" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </a>
+              <a href="https://maps.google.com/?cid=841527785235839000" target="_blank" rel="noopener noreferrer" class="btn-glow btn-sm" aria-label="Open RIT Kottayam in Google Maps">
+                <span class="btn-glow-streak"></span>
+                <span>Get Directions</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="rit-map-wrapper">
+            <iframe
+              title="RIT Location"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7868.381587602457!2d76.622888!3d9.578816000000002!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062d96b2fe8ed9%3A0xbade243e087b408!2sRAJIV%20GANDHI%20INSTITUTE%20OF%20TECHNOLOGY%2C%20KOTTAYAM!5e0!3m2!1sen!2sin!4v1756451136443!5m2!1sen!2sin"
+              width="100%"
+              height="420"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -723,6 +818,98 @@
     <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">✕</button>
     <img class="lightbox-img" id="lightbox-img" src="" alt="" />
     <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <!-- ═══════════════════ EVENT DETAILS OPENING CARD (MODAL) ═══════════════════ -->
+  <div class="event-modal-backdrop" id="event-modal" role="dialog" aria-modal="true" aria-labelledby="modal-event-title" aria-hidden="true" data-lenis-prevent="true">
+    <div class="event-modal-card" id="event-modal-card" data-lenis-prevent="true" tabindex="-1">
+      <button class="event-modal-close" id="event-modal-close" aria-label="Close event details">✕</button>
+
+      <div class="event-modal-grid">
+        <!-- Left: Poster Column -->
+        <div class="event-modal-poster-col" id="modal-poster-col">
+          <div class="event-modal-poster-wrap" id="modal-poster-wrap">
+            <img src="" alt="" id="modal-poster-img" class="event-modal-poster-img" />
+          </div>
+          <div class="modal-poster-actions" id="modal-poster-actions">
+            <a href="#" target="_blank" rel="noopener" id="modal-poster-zoom" class="poster-zoom-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <span>View Full Poster</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Information Column -->
+        <div class="event-modal-info-col">
+          <div class="modal-header-meta">
+            <span class="tag tag-accent" id="modal-category">PRE-EVENT</span>
+            <span class="tag" id="modal-mode">ONLINE</span>
+            <span class="tag tag-ktu" id="modal-ktu-badge">KTU POINTS</span>
+          </div>
+
+          <h2 class="modal-event-title" id="modal-event-title"></h2>
+          <p class="modal-event-assoc mono-label" id="modal-event-assoc"></p>
+
+          <blockquote class="modal-event-quote" id="modal-event-quote"></blockquote>
+
+          <!-- Quick facts grid -->
+          <div class="modal-facts-grid">
+            <div class="modal-fact-box">
+              <span class="modal-fact-lbl mono-label">DATE</span>
+              <span class="modal-fact-val" id="modal-date"></span>
+            </div>
+            <div class="modal-fact-box">
+              <span class="modal-fact-lbl mono-label">TIME</span>
+              <span class="modal-fact-val" id="modal-time"></span>
+            </div>
+            <div class="modal-fact-box">
+              <span class="modal-fact-lbl mono-label">FEE</span>
+              <span class="modal-fact-val" id="modal-fee"></span>
+            </div>
+            <div class="modal-fact-box">
+              <span class="modal-fact-lbl mono-label">CERTIFICATE</span>
+              <span class="modal-fact-val" id="modal-cert">Provided</span>
+            </div>
+          </div>
+
+          <!-- Speaker Card -->
+          <div class="modal-speaker-card" id="modal-speaker-card">
+            <div class="speaker-icon">🎙️</div>
+            <div class="speaker-info">
+              <span class="speaker-lbl mono-label" id="modal-speaker-lbl">SPEAKER</span>
+              <h4 class="speaker-name" id="modal-speaker-name"></h4>
+              <p class="speaker-designation" id="modal-speaker-desig"></p>
+            </div>
+          </div>
+
+          <!-- Description Section -->
+          <div class="modal-body-section">
+            <span class="mono-label accent">EVENT BRIEF</span>
+            <p class="modal-description" id="modal-description"></p>
+            <div class="modal-extra-details" id="modal-extra-details"></div>
+          </div>
+
+          <!-- Coordinators & Contacts -->
+          <div class="modal-contact-section" id="modal-contact-section">
+            <span class="mono-label accent">COORDINATORS // QUERIES</span>
+            <div class="modal-contacts-list" id="modal-contacts-list"></div>
+          </div>
+
+          <!-- Modal Actions Footer -->
+          <div class="modal-footer-actions">
+            <a href="#" target="_blank" rel="noopener" class="btn-glow modal-reg-btn" id="modal-register-btn">
+              <span class="btn-glow-streak"></span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>Register Now</span>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="btn-outline modal-ig-btn" id="modal-ig-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <span>Instagram Post ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="js/main.js"></script>

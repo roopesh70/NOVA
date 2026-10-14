@@ -36,7 +36,7 @@
   document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', closeMenu));
 
   /* ── Terminal chip ── */
-  const msgs = ['mission@nova ~ $ T-minus 10 days','mission@nova ~ $ 12 clubs onboard','mission@nova ~ $ countdown online','mission@nova ~ $ launch pad: RIT','mission@nova ~ $ signal: strong'];
+  const msgs = ['mission@nova ~ $ T-minus 9 days','mission@nova ~ $ 12 clubs onboard','mission@nova ~ $ countdown online','mission@nova ~ $ launch pad: RIT','mission@nova ~ $ signal: strong'];
   let tIdx = 0;
   const termText = document.getElementById('terminal-text');
   setInterval(() => {
