@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — NOVA 5.0 | RIT Kottayam</title>
+  <meta name="description" content="NOVA 5.0 Gallery — Full photo gallery with filter tabs, lightbox navigation and lazy loading." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Unbounded:wght@700;800;900&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .gallery-grid {
+      columns: 4;
+      column-gap: 14px;
+    }
+    @media (max-width: 1024px) {
+      .gallery-grid { columns: 3; }
+    }
+    @media (max-width: 768px) {
+      .gallery-grid { columns: 2; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+    }
+
+    .gallery-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-1);
+    }
+
+    .gallery-empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .gallery-empty-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .gallery-empty-text { color: var(--text-dim); font-size: 15px; }
+
+    .gallery-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    /* Lightbox navigation */
+    .lightbox-nav {
+      display: flex;
+      gap: 16px;
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .lightbox-nav-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 200ms;
+    }
+    .lightbox-nav-btn:hover { color: var(--accent); border-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="page-transition"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="NOVA 5.0 Home">
+        <img src="Logos/NOVA.png" alt="NOVA 5.0 logo" class="nav-logo-img" />
+        <span class="nav-logo-text">NOVA<span class="accent">5.0</span></span>
+      </a>
+      <div class="nav-pill" id="nav-pill">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About</a>
+        <a href="/#events" class="nav-link">Events</a>
+        <a href="/#coordinators" class="nav-link">Clubs</a>
+        <a href="/glimpses" class="nav-link">Glimpses</a>
+        <a href="/gallery" class="nav-link active">Gallery</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="terminal-chip" id="terminal-chip" aria-live="off">
+          <span class="terminal-dot"></span>
+          <span class="terminal-text" id="terminal-text">mission@nova ~ $ T-minus 10 days</span>
+          <span class="terminal-cursor">▌</span>
+        </div>
+        <div class="mobile-terminal-chip" id="mobile-terminal-chip" aria-hidden="true">
+          <span class="terminal-dot"></span>
+          <span class="mono-label accent">T-10d</span>
+        </div>
+        <a href="/#contact" class="nav-icon-btn" aria-label="Contact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-header">
+      <span class="mono-label accent">SYSTEM NAVIGATION // NOVA 5.0</span>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="/" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">01</span><span class="mob-nav-text">Home</span></a>
+      <a href="/#about" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">02</span><span class="mob-nav-text">About</span></a>
+      <a href="/#events" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">03</span><span class="mob-nav-text">Events</span></a>
+      <a href="/#coordinators" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">04</span><span class="mob-nav-text">Clubs</span></a>
+      <a href="/glimpses" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">05</span><span class="mob-nav-text">Glimpses</span></a>
+      <a href="/gallery" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">06</span><span class="mob-nav-text">Gallery</span></a>
+      <a href="/#contact" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">07</span><span class="mob-nav-text">Contact</span></a>
+      <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="mobile-nav-link register-link">Register Now →</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <span class="mono-label dim">OCT 24, 2026 · RIT KOTTAYAM</span>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <!-- Inner Hero -->
+    <section class="inner-hero section" id="gallery-hero">
+      <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+        <div class="section-index-row">
+          <span class="mono-label accent">NOVA · GALLERY INDEX</span>
+          <span class="mono-label dim">NOVA 5.0</span>
+        </div>
+        <h1 class="section-headline">Photo <span class="accent">Gallery</span></h1>
+        <p class="section-subtext">Moments captured from NOVA 5.0 — the grand day of space, science and discovery.</p>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" id="gallery-main" aria-labelledby="gallery-heading">
+      <div class="container">
+        <!-- Filter Tabs -->
+        <div class="gallery-tabs" role="tablist" aria-label="Gallery filter">
+          <button class="gallery-tab active" data-filter="all" role="tab" aria-selected="true">All Photos</button>
+          <button class="gallery-tab" data-filter="nova5" role="tab" aria-selected="false">NOVA 5.0</button>
+          <button class="gallery-tab" data-filter="inauguration" role="tab" aria-selected="false">Inauguration</button>
+          <button class="gallery-tab" data-filter="workshops" role="tab" aria-selected="false">Workshops</button>
+          <button class="gallery-tab" data-filter="events" role="tab" aria-selected="false">Events</button>
+        </div>
+
+        <p class="gallery-count" id="gallery-count">Showing 0 photos · More coming soon</p>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-empty reveal-up" id="gallery-empty">
+          <div class="gallery-empty-icon">🌌</div>
+          <h2 class="gallery-empty-title" id="gallery-heading">Gallery Coming Soon</h2>
+          <p class="gallery-empty-text">Photos from NOVA 5.0 will be uploaded here after the event on October 24, 2026.</p>
+          <div style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="/glimpses" class="btn-outline">View NOVA 4.0 & 3.0 Glimpses →</a>
+            <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="btn-glow" style="display:inline-flex;">
+              <span class="btn-glow-streak"></span>
+              Register for NOVA 5.0
+            </a>
+          </div>
+        </div>
+
+        <!-- Gallery grid (will be populated with photos) -->
+        <div class="masonry-grid" id="gallery-grid" style="display:none;">
+          <!-- Photos will appear here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid-scene" aria-hidden="true">
+      <canvas class="footer-canvas" id="footer-canvas"></canvas>
+      <div class="footer-moon"></div>
+    </div>
+    <div class="footer-wordmark-row">
+      <div class="footer-wordmark" id="footer-wordmark" aria-hidden="true">
+        <span class="wm-letter">N</span><span class="wm-letter">O</span><span class="wm-letter">V</span><span class="wm-letter">A</span>
+        <span class="wm-dot">.</span><span class="wm-letter">5</span><span class="wm-dot">.</span><span class="wm-letter">0</span>
+      </div>
+    </div>
+    <div class="footer-links-row container">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/" class="footer-link">Home</a>
+        <a href="/#about" class="footer-link">About</a>
+        <a href="/#events" class="footer-link">Events</a>
+        <a href="/#coordinators" class="footer-link">Clubs</a>
+        <a href="/glimpses" class="footer-link">Glimpses</a>
+        <a href="/gallery" class="footer-link">Gallery</a>
+        <a href="/#contact" class="footer-link">Contact</a>
+      </nav>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="mailto:nova@rit.ac.in" aria-label="Email" class="social-icon-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p class="footer-copy mono-label dim">© 2026 NOVA · RIT Kottayam. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+    <div class="lightbox-nav">
+      <button class="lightbox-nav-btn" id="lightbox-prev" aria-label="Previous image">←</button>
+      <button class="lightbox-nav-btn" id="lightbox-next" aria-label="Next image">→</button>
+    </div>
+  </div>
+
+  <script src="js/gallery.js"></script>
+</body>
+</html>

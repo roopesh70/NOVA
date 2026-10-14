@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA 5.0 — New Order for Visionary Astronomy | RIT Kottayam</title>
+  <meta name="description" content="NOVA 5.0 — New Order for Visionary Astronomy. Kerala's most impactful student-led space initiative. Oct 24, RIT Kottayam. Inspiring talks, hands-on workshops, and innovative competitions." />
+  <meta property="og:title" content="NOVA 5.0 — New Order for Visionary Astronomy" />
+  <meta property="og:description" content="Kerala's most impactful student-led space initiative. Oct 24, RIT Kottayam." />
+  <meta property="og:image" content="Frames/Landing Page/Desktop landing.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Unbounded:wght@700;800;900&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Film grain overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Page transition overlay -->
+  <div class="page-transition"></div>
+
+  <!-- Navbar top hover trigger zone -->
+  <div class="nav-trigger-zone" id="nav-trigger-zone" aria-hidden="true"></div>
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="NOVA 5.0 Home">
+        <img src="Logos/NOVA.png" alt="NOVA 5.0 logo" class="nav-logo-img" />
+        <span class="nav-logo-text">NOVA<span class="accent">5.0</span></span>
+      </a>
+
+      <div class="nav-pill" id="nav-pill">
+        <a href="/" class="nav-link active" id="nav-home">Home</a>
+        <a href="#about" class="nav-link" id="nav-about">About</a>
+        <a href="#events" class="nav-link" id="nav-events">Events</a>
+        <a href="#coordinators" class="nav-link" id="nav-coords">Clubs</a>
+        <a href="/glimpses" class="nav-link" id="nav-glimpses">Glimpses</a>
+        <a href="/gallery" class="nav-link" id="nav-gallery">Gallery</a>
+        <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="terminal-chip" id="terminal-chip" aria-live="off" aria-atomic="true">
+          <span class="terminal-dot"></span>
+          <span class="terminal-text" id="terminal-text">mission@nova ~ $ T-minus 10 days</span>
+          <span class="terminal-cursor">▌</span>
+        </div>
+        <div class="mobile-terminal-chip" id="mobile-terminal-chip" aria-hidden="true">
+          <span class="terminal-dot"></span>
+          <span class="mono-label accent">T-10d</span>
+        </div>
+        <a href="#contact" class="nav-icon-btn" aria-label="Contact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile full-screen menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-header">
+      <span class="mono-label accent">SYSTEM NAVIGATION // NOVA 5.0</span>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="/" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">01</span><span class="mob-nav-text">Home</span></a>
+      <a href="#about" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">02</span><span class="mob-nav-text">About</span></a>
+      <a href="#events" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">03</span><span class="mob-nav-text">Events</span></a>
+      <a href="#coordinators" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">04</span><span class="mob-nav-text">Clubs</span></a>
+      <a href="/glimpses" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">05</span><span class="mob-nav-text">Glimpses</span></a>
+      <a href="/gallery" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">06</span><span class="mob-nav-text">Gallery</span></a>
+      <a href="#contact" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">07</span><span class="mob-nav-text">Contact</span></a>
+      <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="mobile-nav-link register-link">Register Now →</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <span class="mono-label dim">OCT 24, 2026 · RIT KOTTAYAM</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ HERO (FIXED CANVAS SCROLL) ═══════════════════ -->
+  <section class="hero" id="hero" aria-label="Hero section">
+    <div class="hero-bg">
+      <canvas id="hero-canvas" class="hero-canvas" aria-label="NOVA 5.0 Interactive Cosmic Space Scroll Animation"></canvas>
+      <picture id="hero-poster">
+        <source media="(max-width: 767px)" srcset="Frames/Mobile View/frame_000000.webp" />
+        <img src="Frames/Desktop View/frame_000000.webp" alt="NOVA 5.0 hero — astronaut standing on an alien world under a cosmic sky" class="hero-img" id="hero-img" />
+      </picture>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Real-time Mission Telemetry HUD -->
+    <div class="hero-telemetry" id="hero-telemetry" aria-hidden="true">
+      <div class="telemetry-inner">
+        <div class="telemetry-dot"></div>
+        <div class="telemetry-col">
+          <span class="telemetry-lbl mono-label">STAGE // FLIGHT PHASE</span>
+          <span class="telemetry-val" id="telemetry-stage">STAGE 01 · PLANETARY ASCENT</span>
+        </div>
+        <div class="telemetry-divider"></div>
+        <div class="telemetry-col">
+          <span class="telemetry-lbl mono-label">ALTITUDE</span>
+          <span class="telemetry-val" id="telemetry-alt">0.0 KM</span>
+        </div>
+        <div class="telemetry-divider hide-mobile"></div>
+        <div class="telemetry-col hide-mobile">
+          <span class="telemetry-lbl mono-label">COSMIC TELEMETRY</span>
+          <span class="telemetry-val" id="telemetry-sub">RIT KOTTAYAM · ORBIT 0°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Content: Desktop & Mobile Landing Page Artwork Design -->
+    <div class="hero-content" id="hero-content">
+      <!-- 13 Partner & Coordinator Logos along top (Single row on Desktop, 2 rows on Mobile) -->
+      <div class="hero-logos-bar" id="hero-logos-bar" role="region" aria-label="Partner and Coordinator Organizations">
+        <div class="hero-logos-row hero-logos-row-1">
+          <img src="Logos/orion_clean.png" alt="Orion Space Technology & Science Association" class="hero-logo-item logo-orion" />
+          <img src="Logos/astral_clean.png" alt="Astral Space Club GECT" class="hero-logo-item logo-astral" />
+          <img src="Logos/vyom_clean.png" alt="Vyom Rock Club" class="hero-logo-item logo-vyom" />
+          <img src="Logos/celestials_clean.png" alt="Celestials IIST" class="hero-logo-item logo-celestials" />
+          <img src="Logos/calypso_clean.png" alt="Calypso CCAK" class="hero-logo-item logo-calypso" />
+          <img src="Logos/ires_clean.png" alt="IRES Aerospace Society of CUSAT" class="hero-logo-item logo-ires" />
+        </div>
+        <div class="hero-logos-row hero-logos-row-2">
+          <img src="Logos/aisa_clean.png" alt="AISA MACE" class="hero-logo-item logo-aisa" />
+          <img src="Logos/nexora_clean.png" alt="Nexora LBSITW" class="hero-logo-item logo-nexora" />
+          <img src="Logos/astrocet_clean.png" alt="Astrocet CET" class="hero-logo-item logo-astrocet" />
+          <img src="Logos/astron_clean.png" alt="Astron TKMCE" class="hero-logo-item logo-astron" />
+          <img src="Logos/celestia_clean.png" alt="Celestia NSSCE" class="hero-logo-item logo-celestia" />
+          <img src="Logos/rit_clean.png" alt="Astronomical Society of RIT" class="hero-logo-item logo-rit" />
+          <img src="Logos/iic_clean.png" alt="Institutions Innovation Council" class="hero-logo-item logo-iic" />
+        </div>
+      </div>
+
+      <!-- Center Branding Lockup -->
+      <div class="hero-center-brand">
+        <div class="hero-edition-of">5th Edition of</div>
+        <div class="hero-nova-brand">
+          <img src="Logos/NOVA.png" alt="NOVA" class="hero-nova-logo" />
+        </div>
+        <h1 class="hero-college-name">RAJIV GANDHI INSTITUTE OF TECHNOLOGY KOTTAYAM</h1>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" id="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
+      <span class="scroll-label mono-label">scroll</span>
+    </div>
+  </section>
+
+  <main id="main-content">
+    <!-- Spacer: pushes content below the fixed hero -->
+    <div class="hero-spacer" aria-hidden="true"></div>
+
+    <!-- Content wrap: solid black bg that rises over the hero -->
+    <div class="content-wrap" id="content-wrap">
+
+    <!-- ═══════════════════ ABOUT NOVA ═══════════════════ -->
+    <section class="section about-section" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="section-index-row">
+          <span class="mono-label accent">NOVA · MISSION INDEX</span>
+          <span class="mono-label dim">EDITION 05</span>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-headline-col">
+            <h2 class="section-headline reveal-up" id="about-heading">
+              A student-led space movement from the colleges of Kerala, now in its <span class="accent">fifth edition.</span>
+            </h2>
+          </div>
+          <div class="about-body-col">
+            <div class="bordered-block reveal-up" style="--delay:0.1s">
+              <p>Born from the collective vision of astronomy and space clubs across Kerala, NOVA has grown into one of the state's most impactful student-led space initiatives. Now in its fifth edition, NOVA 5.0 continues to unite passionate students, innovators, and space enthusiasts through a shared commitment to advancing space science, technology, and research.</p>
+            </div>
+            <div class="bordered-block reveal-up" style="--delay:0.2s">
+              <p>By fostering collaboration across engineering colleges, NOVA creates opportunities to learn, innovate, and explore beyond the classroom. More than just an event, it is a movement that empowers the next generation to dream bigger, think deeper, and shape the future of space exploration.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Format Tiles -->
+        <div class="format-tiles reveal-up" style="--delay:0.3s">
+          <div class="format-tile">
+            <div class="format-tile-icon">🌐</div>
+            <div class="format-tile-label mono-label">ONLINE PHASE</div>
+            <div class="format-tile-value">Month-long series of online events</div>
+          </div>
+          <div class="format-tile">
+            <div class="format-tile-icon">🚀</div>
+            <div class="format-tile-label mono-label">IMMERSIVE PHASE</div>
+            <div class="format-tile-value">4 days of immersive activities</div>
+          </div>
+          <div class="format-tile">
+            <div class="format-tile-icon">🏛️</div>
+            <div class="format-tile-label mono-label">GRAND FINALE</div>
+            <div class="format-tile-value">Offline event at RIT Kottayam</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ MISSION & VISION ═══════════════════ -->
+    <section class="section mission-section" id="mission" aria-labelledby="mission-heading">
+      <div class="container">
+        <div class="section-pill-label">
+          <span class="pill-label">Mission</span>
+        </div>
+
+        <div class="mission-statement bordered-block reveal-up">
+          <p class="statement-text" id="mission-heading">To create an inclusive platform that brings together students, researchers, and space enthusiasts to explore the wonders of space science and technology through inspiring talks, hands-on workshops, and innovative competitions. NOVA aims to foster curiosity, collaboration, and a lifelong passion for discovery.</p>
+          <p class="statement-highlight dither-text" id="dither-text">Talks. Workshops. Competitions. Curiosity.</p>
+        </div>
+
+        <div class="section-pill-label" style="margin-top:4rem">
+          <span class="pill-label">Vision</span>
+        </div>
+
+        <div class="vision-statement bordered-block reveal-up" style="--delay:0.15s">
+          <p class="statement-text">To ignite a passion for space exploration and empower young minds to innovate, discover, and shape the future of space science.</p>
+        </div>
+
+        <!-- 4 Pillars -->
+        <div class="pillars-grid reveal-up" style="--delay:0.25s">
+          <div class="pillar-card">
+            <div class="pillar-icon">💬</div>
+            <h3 class="pillar-title">Inspiring Talks</h3>
+            <p class="pillar-desc">Sessions that bring space science and technology to students and enthusiasts from leading experts.</p>
+            <div class="tag-row">
+              <span class="tag">Space Science</span>
+              <span class="tag">Technology</span>
+            </div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🔭</div>
+            <h3 class="pillar-title">Hands-on Workshops</h3>
+            <p class="pillar-desc">Learning by building, for beginners and curious minds alike with real-world astronomical tools.</p>
+            <div class="tag-row">
+              <span class="tag">Hands-on</span>
+              <span class="tag">Learning</span>
+            </div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🏆</div>
+            <h3 class="pillar-title">Innovative Competitions</h3>
+            <p class="pillar-desc">Challenges that reward creative ideas and teamwork across engineering colleges of Kerala.</p>
+            <div class="tag-row">
+              <span class="tag">Innovation</span>
+              <span class="tag">Teams</span>
+            </div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🌌</div>
+            <h3 class="pillar-title">Collaboration & Discovery</h3>
+            <p class="pillar-desc">An inclusive platform linking students, researchers and astronomy clubs across Kerala.</p>
+            <div class="tag-row">
+              <span class="tag">Community</span>
+              <span class="tag">Curiosity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ EVENTS ═══════════════════ -->
+    <section class="section events-section" id="events" aria-labelledby="events-heading">
+      <div class="container">
+        <div class="section-index-row">
+          <span class="mono-label accent">NOVA · EVENTS INDEX</span>
+          <span class="mono-label dim">2026</span>
+        </div>
+
+        <h2 class="section-headline reveal-up" id="events-heading">Events & <span class="accent">Programme</span></h2>
+
+        <!-- Inauguration -->
+        <div class="event-category-block reveal-up">
+          <div class="event-category-header">
+            <span class="mono-label accent">INAUGURATION</span>
+            <div class="event-cat-line"></div>
+          </div>
+          <div class="inauguration-card bordered-block">
+            <div class="inaug-left">
+              <div class="inaug-icon">🎙️</div>
+              <div>
+                <h3 class="inaug-title">Online Inaugural Ceremony & Talk Session</h3>
+                <p class="inaug-desc">NOVA 5.0 officially begins with an inspiring talk by our Chief Guest from ISRO.</p>
+                <div class="inaug-meta">
+                  <span class="inaug-meta-item"><strong>Chief Guest:</strong> Dr. Tirtha Pratim Das — Director, Space Science Programme, ISRO HQ</span>
+                </div>
+                <div class="inaug-details">
+                  <span class="tag">📅 5 Oct 2026</span>
+                  <span class="tag">🕖 7:00 PM</span>
+                  <span class="tag">🌐 Online</span>
+                </div>
+              </div>
+            </div>
+            <div class="inaug-right">
+              <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="btn-glow btn-sm">
+                <span class="btn-glow-streak"></span>
+                Register Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pre-Events -->
+        <div class="event-category-block reveal-up" style="--delay:0.1s">
+          <div class="event-category-header">
+            <span class="mono-label accent">PRE-EVENTS</span>
+            <div class="event-cat-line"></div>
+            <span class="mono-label dim">Sep – Oct 2026</span>
+          </div>
+
+          <div class="events-grid" id="pre-events-grid">
+            <!-- Event cards inserted by JS -->
+          </div>
+
+          <!-- Posters strip -->
+          <div class="posters-strip" id="pre-posters-strip">
+            <div class="poster-scroll">
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.41 PM.jpeg" alt="Spatial Data Analytics poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM.jpeg" alt="History of Space Exploration poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (1).jpeg" alt="Introduction to Rocket Propulsion poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.42 PM (2).jpeg" alt="Cosmic Commentary poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM.jpeg" alt="Understanding Stellar Formation poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (1).jpeg" alt="Astrothon poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.43 PM (2).jpeg" alt="Satellite Remote Sensing poster" class="poster-thumb" loading="lazy" />
+              <img src="Posters/Pre-Events/WhatsApp Image 2026-10-13 at 10.19.44 PM.jpeg" alt="Space Environment and Materials poster" class="poster-thumb" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Events (Online) -->
+        <div class="event-category-block reveal-up" style="--delay:0.2s">
+          <div class="event-category-header">
+            <span class="mono-label accent">MAIN EVENTS — ONLINE</span>
+            <div class="event-cat-line"></div>
+            <span class="mono-label dim">Oct 17–18, 2026</span>
+          </div>
+
+          <div class="events-grid">
+            <div class="event-card">
+              <div class="event-card-inner">
+                <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.43 PM.jpeg" alt="Introduction to Rocketry poster" class="event-poster" loading="lazy" />
+                <div class="event-card-content">
+                  <span class="mono-label accent">WORKSHOP · OCT 17</span>
+                  <h3 class="event-title">Introduction to Rocketry: Design, Fabrication, Avionics</h3>
+                  <p class="event-desc">Covering the three core pillars of rocketry — design, construction, and avionics guidance systems.</p>
+                  <div class="event-meta-row">
+                    <span class="tag">₹30</span>
+                    <span class="tag">7:30 PM</span>
+                    <span class="tag">KTU Points</span>
+                  </div>
+                  <a href="https://forms.gle/7GyeoLo9LEGg8M9X7" target="_blank" rel="noopener" class="event-link">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-card">
+              <div class="event-card-inner">
+                <img src="Posters/Main Events/WhatsApp Image 2026-10-13 at 10.21.44 PM.jpeg" alt="Cosmic Navigator poster" class="event-poster" loading="lazy" />
+                <div class="event-card-content">
+                  <span class="mono-label accent">WORKSHOP · OCT 18</span>
+                  <h3 class="event-title">Cosmic Navigator: Journey Using Celestia</h3>
+                  <p class="event-desc">Navigate the cosmos using Celestia — travel across the solar system, past distant galaxies and explore the night sky.</p>
+                  <div class="event-meta-row">
+                    <span class="tag">₹20</span>
+                    <span class="tag">7:30 PM</span>
+                    <span class="tag">KTU Points</span>
+                  </div>
+                  <a href="https://bit.ly/Nova5-o-CosmicNavigator" target="_blank" rel="noopener" class="event-link">Register →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Offline Event -->
+        <div class="event-category-block reveal-up" style="--delay:0.3s">
+          <div class="event-category-header">
+            <span class="mono-label accent">MAIN OFFLINE EVENT</span>
+            <div class="event-cat-line"></div>
+            <span class="mono-label dim">OCT 24, 2026 · RIT KOTTAYAM</span>
+          </div>
+
+          <div class="offline-event-card bordered-block">
+            <div class="offline-event-header">
+              <div>
+                <h3 class="offline-title">NOVA 5.0 — Grand Day</h3>
+                <p class="offline-subtitle mono-label dim">08:00 – 17:30 · RIT Kottayam Campus · 80 Participants</p>
+              </div>
+              <a href="https://forms.gle/ST9f3BTZqgW9uEug6" target="_blank" rel="noopener" class="btn-glow btn-sm">
+                <span class="btn-glow-streak"></span>
+                Register Now
+              </a>
+            </div>
+
+            <div class="workshops-row">
+              <div class="workshop-block">
+                <div class="workshop-icon">🔭</div>
+                <h4 class="workshop-name">Workshop A</h4>
+                <p class="workshop-title">Processing Real Telescope Data with Astropy</p>
+                <p class="workshop-desc">Explore the world of astronomical data processing using Astropy, a powerful Python library widely used in astronomy and astrophysics. This session introduces participants to working with raw telescope data stored in FITS (Flexible Image Transport System) files, understanding metadata, and processing astronomical observations into meaningful information. Learn how data from professional telescopes, including the James Webb Space Telescope (JWST), can be opened, interpreted, and analysed to study galaxies and other celestial objects.</p>
+                <p class="workshop-desc">Discover how Python bridges the gap between raw astronomical observations and scientific understanding, giving you a hands-on introduction to the tools astronomers use to explore the universe.</p>
+                <div class="tag-row">
+                  <span class="tag">Python</span><span class="tag">Astropy</span><span class="tag">JWST Data</span>
+                </div>
+              </div>
+              <div class="workshop-block">
+                <div class="workshop-icon">🚀</div>
+                <h4 class="workshop-name">Workshop B</h4>
+                <p class="workshop-title">Escape Velocity: Piloting Space Flight Simulator</p>
+                <p class="workshop-desc">Design and launch your own rocket in a realistic space flight simulation, where every decision affects the success of your mission. Work within limits on mass, fuel, and rocket components to launch a payload into orbit. Understand how thrust and gravity determine liftoff, how a gravity turn helps a rocket enter orbit, and how to circularise an orbit to keep a spacecraft moving around Earth. Use the rocket equation to calculate Delta-v and understand how fuel consumption affects the distance your rocket can travel. Observe how atmospheric drag can affect rocket stability and lead to structural failures. For an advanced challenge, plan a mission to land on the Moon and return safely to Earth.</p>
+                <p class="workshop-desc">Experience the science behind spaceflight by applying physics, engineering, and mission planning to real challenges faced in space exploration.</p>
+                <div class="tag-row">
+                  <span class="tag">Mission Design</span><span class="tag">Orbital Mechanics</span><span class="tag">Simulation</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-schedule">
+              <h4 class="schedule-title mono-label">DAY AT A GLANCE</h4>
+              <div class="schedule-grid">
+                <div class="schedule-item"><span class="sched-time">08:00</span><span class="sched-event">Registration & Kit Collection</span></div>
+                <div class="schedule-item"><span class="sched-time">09:00</span><span class="sched-event">Inauguration & Welcome</span></div>
+                <div class="schedule-item"><span class="sched-time">09:45</span><span class="sched-event">Keynote Talk</span></div>
+                <div class="schedule-item"><span class="sched-time">10:50</span><span class="sched-event">Workshop Sessions Begin (A & B parallel)</span></div>
+                <div class="schedule-item"><span class="sched-time">13:00</span><span class="sched-event">Lunch & Sponsor Stalls</span></div>
+                <div class="schedule-item"><span class="sched-time">14:00</span><span class="sched-event">Workshop Sessions Continue</span></div>
+                <div class="schedule-item"><span class="sched-time">16:20</span><span class="sched-event">Showcase — Best Results</span></div>
+                <div class="schedule-item"><span class="sched-time">16:50</span><span class="sched-event">Valedictory, Awards & Group Photo</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ OUR COORDINATORS ═══════════════════ -->
+    <section class="section coordinators-section" id="coordinators" aria-labelledby="coords-heading">
+      <div class="container">
+        <div class="section-index-row">
+          <span class="mono-label dim">Trusted by the builders</span>
+        </div>
+        <h2 class="section-headline reveal-up" id="coords-heading">Our <span class="accent">Coordinators</span></h2>
+        <p class="section-subtext reveal-up" style="--delay:0.1s">12 astronomy and space clubs from engineering colleges across Kerala.</p>
+
+        <div class="logo-grid reveal-up" style="--delay:0.2s" id="logo-grid">
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/Celestials-The Astronomy Club of IIST.png" alt="Celestials — IIST" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Celestials</span>
+            <span class="logo-college mono-label">IIST</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/Vyom Space Club - College Of Engineering Perumon_.jpg" alt="Vyom — CEP" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Vyom</span>
+            <span class="logo-college mono-label">CEP</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/Astronomical Society of RIT-RIT,KOTTAYAM.png" alt="Astronomical Society — RIT" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Astronomical Society</span>
+            <span class="logo-college mono-label">RIT</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/Nexora LBSITW_.jpg" alt="Nexora — LBSITW" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Nexora</span>
+            <span class="logo-college mono-label">LBSITW</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/orion.png" alt="Orion — GECW" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Orion</span>
+            <span class="logo-college mono-label">GECW</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/astron logo TKM College of Engineering, Kollam.png" alt="Astron — TKMCE" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Astron</span>
+            <span class="logo-college mono-label">TKMCE</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/CELESTIA - NSS College of Engineering.png" alt="Celestia — NSSCE" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Celestia</span>
+            <span class="logo-college mono-label">NSSCE</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/ASTROCET_College of Engineering Trivandrum.PNG" alt="AstroCET — CET" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">AstroCET</span>
+            <span class="logo-college mono-label">CET</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/ASTRAL SPACE CLUB_ GEC THRISSUR.png" alt="Astral Space Club — GECT" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Astral Space Club</span>
+            <span class="logo-college mono-label">GECT</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/CalypsoGCEK (1).png" alt="Calypso — GCEK" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Calypso</span>
+            <span class="logo-college mono-label">GCEK</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/AISA_Mar AthanasiusCollegeofEngineering.jpg" alt="AISA — MACE" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">AISA</span>
+            <span class="logo-college mono-label">MACE</span>
+          </div>
+          <div class="logo-tile" tabindex="0">
+            <img src="Logos/IRES logo white.png" alt="IRES — CUSAT" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">IRES</span>
+            <span class="logo-college mono-label">CUSAT</span>
+          </div>
+        </div>
+
+        <!-- IIC -->
+        <div class="iic-row reveal-up" style="--delay:0.3s">
+          <span class="mono-label dim">In collaboration with</span>
+          <div class="iic-tile">
+            <img src="Logos/IIC.jpeg" alt="Institution's Innovation Council" class="logo-img" loading="lazy" />
+            <span class="logo-club-name">Institution's Innovation Council</span>
+            <span class="logo-college mono-label">IIC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ GLIMPSES PREVIEW ═══════════════════ -->
+    <section class="section glimpses-preview-section" id="glimpses-preview" aria-labelledby="glimpses-heading">
+      <div class="container">
+        <div class="glimpses-header">
+          <div>
+            <h2 class="section-headline reveal-up" id="glimpses-heading">Glimpses of <span class="accent">NOVA</span></h2>
+            <p class="section-subtext reveal-up" style="--delay:0.1s">Two editions, hundreds of curious minds. Here is where the journey began.</p>
+          </div>
+          <a href="/glimpses" class="arrow-link reveal-up" style="--delay:0.2s">View all glimpses →</a>
+        </div>
+
+        <div class="glimpses-preview-grid reveal-up" style="--delay:0.2s">
+          <div class="glimpse-card placeholder-card">
+            <div class="placeholder-inner">
+              <span class="mono-label dim">NOVA 4.0 · GLIMPSE</span>
+              <span class="placeholder-text">Moments from NOVA 4.0</span>
+            </div>
+          </div>
+          <div class="glimpse-card placeholder-card tall">
+            <div class="placeholder-inner">
+              <span class="mono-label dim">NOVA 4.0 · GLIMPSE</span>
+              <span class="placeholder-text">Photos coming soon</span>
+            </div>
+          </div>
+          <div class="glimpse-card placeholder-card">
+            <div class="placeholder-inner">
+              <span class="mono-label dim">NOVA 3.0 · GLIMPSE</span>
+              <span class="placeholder-text">Moments from NOVA 3.0</span>
+            </div>
+          </div>
+          <div class="glimpse-card placeholder-card tall">
+            <div class="placeholder-inner">
+              <span class="mono-label dim">NOVA 3.0 · GLIMPSE</span>
+              <span class="placeholder-text">Photos coming soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glimpses-cta reveal-up" style="--delay:0.3s">
+          <a href="/glimpses" class="btn-outline">View all glimpses →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ ABOUT RIT ═══════════════════ -->
+    <section class="section rit-section" id="about-rit" aria-labelledby="rit-heading">
+      <div class="container">
+        <div class="section-pill-label">
+          <span class="pill-label">Venue</span>
+        </div>
+        <h2 class="section-headline reveal-up" id="rit-heading">About <span class="accent">RIT Kottayam</span></h2>
+
+        <div class="rit-facts-strip reveal-up" style="--delay:0.1s">
+          <div class="rit-fact-tile">
+            <span class="rit-fact-value">1991</span>
+            <span class="rit-fact-label mono-label">Established</span>
+          </div>
+          <div class="rit-fact-tile">
+            <span class="rit-fact-value">Govt.</span>
+            <span class="rit-fact-label mono-label">Engineering College</span>
+          </div>
+          <div class="rit-fact-tile">
+            <span class="rit-fact-value">KTU</span>
+            <span class="rit-fact-label mono-label">Affiliation</span>
+          </div>
+          <div class="rit-fact-tile">
+            <span class="rit-fact-value">AICTE</span>
+            <span class="rit-fact-label mono-label">Approval</span>
+          </div>
+        </div>
+
+        <div class="rit-body bordered-block reveal-up" style="--delay:0.2s">
+          <p>Rajiv Gandhi Institute of Technology (RIT), Kottayam, is a Government Engineering College fully owned and run by the Government of Kerala. Established in 1991 and named after former Prime Minister Rajiv Gandhi, the institution was founded with the vision of developing a centre for higher technical education and research. Over the years, RIT has grown into one of Kerala's leading technical institutions, supported by extensive infrastructure and a strong academic environment.</p>
+          <p style="margin-top:1rem;">Affiliated with APJ Abdul Kalam Technological University (KTU) and with its programmes approved by AICTE, RIT offers undergraduate, postgraduate and research opportunities across engineering, architecture and computer applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CONTACT ═══════════════════ -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="section-pill-label">
+          <span class="pill-label">Contact</span>
+        </div>
+
+        <div class="contact-block bordered-block reveal-up">
+          <div class="contact-content">
+            <h2 class="contact-headline" id="contact-heading">Let's reach the <span class="accent">stars</span> together.</h2>
+            <div class="contact-links">
+              <a href="mailto:nova@rit.ac.in" class="contact-email" id="contact-email-link" title="Click to copy email">
+                nova@rit.ac.in
+                <span class="copy-hint mono-label">click to copy</span>
+              </a>
+              <span class="copy-toast" id="copy-toast" aria-live="polite">Copied ✓</span>
+            </div>
+            <div class="contact-socials">
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="contact-mascot" aria-hidden="true">
+            <div class="mascot-satellite">📡</div>
+          </div>
+        </div>
+
+        <!-- Sponsor Enquiry Card -->
+        <div class="enquiry-card bordered-block reveal-up" style="--delay:0.2s">
+          <div class="enquiry-label mono-label accent">SPONSOR DESK · TRANSMISSION</div>
+          <h3 class="enquiry-headline">Want to be part of the launch?</h3>
+          <p class="enquiry-helper">Tell us who you are and which tier fits. We will get back to you with the sponsorship details.</p>
+          <form class="enquiry-form" id="enquiry-form" novalidate>
+            <div class="enquiry-input-row">
+              <input type="email" id="enquiry-email" class="enquiry-input" placeholder="you@company.com" required aria-label="Your company email" />
+              <button type="submit" class="btn-glow" id="enquiry-submit-btn">
+                <span class="btn-glow-streak"></span>
+                ✦ REQUEST SPONSOR DETAILS
+              </button>
+            </div>
+            <p class="enquiry-reassure mono-label dim">No spam. One reply from the NOVA team.</p>
+            <div class="enquiry-status" id="enquiry-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="footer" role="contentinfo">
+    <div class="footer-grid-scene" aria-hidden="true">
+      <canvas class="footer-canvas" id="footer-canvas"></canvas>
+      <div class="footer-moon"></div>
+    </div>
+
+    <div class="footer-wordmark-row">
+      <div class="footer-wordmark" id="footer-wordmark" aria-hidden="true">
+        <span class="wm-letter">N</span>
+        <span class="wm-letter">O</span>
+        <span class="wm-letter">V</span>
+        <span class="wm-letter">A</span>
+        <span class="wm-dot">.</span>
+        <span class="wm-letter">5</span>
+        <span class="wm-dot">.</span>
+        <span class="wm-letter">0</span>
+      </div>
+    </div>
+
+    <div class="footer-links-row container">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/" class="footer-link">Home</a>
+        <a href="#about" class="footer-link">About</a>
+        <a href="#events" class="footer-link">Events</a>
+        <a href="#coordinators" class="footer-link">Clubs</a>
+        <a href="/glimpses" class="footer-link">Glimpses</a>
+        <a href="/gallery" class="footer-link">Gallery</a>
+        <a href="#contact" class="footer-link">Contact</a>
+      </nav>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="mailto:nova@rit.ac.in" aria-label="Email" class="social-icon-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <p class="footer-copy mono-label dim">© 2026 NOVA · RIT Kottayam. All rights reserved.</p>
+      <p class="footer-credit mono-label dim">Brochure & media by IEDC RIT Media Team</p>
+    </div>
+    </footer>
+
+    </div><!-- /.content-wrap -->
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

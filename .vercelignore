@@ -1,0 +1,31 @@
+# ==========================================
+# NOVA 5.0 - Vercel Ignore Configuration
+# ==========================================
+
+# Internal planning files & docs
+Details/
+NOVA_5_0_Website_Design_Document.md
+*.md
+
+# Heavy source files and archives (site uses Frames/*.webp)
+References/
+Videos/
+*.mp4
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# Dev screenshots
+screenshot_*.png
+navbar_crop.png
+
+# Git & System
+.git
+.github
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+.vscode/
+.idea/

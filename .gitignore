@@ -1,0 +1,55 @@
+# ==========================================
+# NOVA 5.0 - Git Ignore Configuration
+# ==========================================
+
+# 1. Private Notes, Event Details & Internal Documents
+Details/
+NOVA_5_0_Website_Design_Document.md
+
+# 2. Heavy Source Videos, Reference Media & Archives (Not used in production)
+References/
+Videos/
+*.mp4
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# 3. Development Screenshots & Debugging Captures
+screenshot_*.png
+navbar_crop.png
+
+# 4. Operating System & Editor Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE & Editor Directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# 5. Vercel & Node / Environment Artifacts
+.vercel
+.env
+.env.local
+.env.*.local
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# 6. Temporary / Cache Files
+*.tmp
+*.bak
