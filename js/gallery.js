@@ -10,17 +10,19 @@
   } catch (e) {}
 
   /* ── Lenis ── */
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const lenis = new Lenis({
-    duration: 1.4,
+    duration: 1.05,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 0.65,
-    touchMultiplier: 0.85,
+    wheelMultiplier: 1.0,
+    touchMultiplier: isTouchDevice ? 1.5 : 1.0,
     smoothWheel: true,
+    smoothTouch: false,
   });
   gsap.registerPlugin(ScrollTrigger);
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  gsap.ticker.lagSmoothing(500, 33);
 
   /* ── Navbar ── */
   const navbar = document.getElementById('navbar');
@@ -51,9 +53,10 @@
 
   /* ── Scroll reveals ── */
   document.querySelectorAll('.reveal-up').forEach(el => {
-    gsap.fromTo(el, { y: 32, opacity: 0 }, {
-      y: 0, opacity: 1, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+    gsap.fromTo(el, { y: 28, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.6, ease: 'power2.out',
+      clearProps: 'transform',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
     });
   });
 

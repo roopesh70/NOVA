@@ -10,17 +10,19 @@
   } catch (e) {}
 
   /* ── Lenis ── */
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const lenis = new Lenis({
-    duration: 1.4,
+    duration: 1.05,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 0.65,
-    touchMultiplier: 0.85,
+    wheelMultiplier: 1.0,
+    touchMultiplier: isTouchDevice ? 1.5 : 1.0,
     smoothWheel: true,
+    smoothTouch: false,
   });
   gsap.registerPlugin(ScrollTrigger);
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  gsap.ticker.lagSmoothing(500, 33);
 
   /* ── Navbar ── */
   const navbar = document.getElementById('navbar');
@@ -52,9 +54,10 @@
   /* ── Scroll reveals ── */
   document.querySelectorAll('.reveal-up').forEach(el => {
     const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || 0;
-    gsap.fromTo(el, { y: 32, opacity: 0 }, {
-      y: 0, opacity: 1, duration: 0.7, delay, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+    gsap.fromTo(el, { y: 28, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.6, delay, ease: 'power2.out',
+      clearProps: 'transform',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
     });
   });
 
@@ -62,9 +65,10 @@
   document.querySelectorAll('.masonry-grid').forEach(grid => {
     const items = grid.querySelectorAll('.masonry-item');
     if (items.length) {
-      gsap.fromTo(items, { y: 28, opacity: 0 }, {
-        y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out',
-        scrollTrigger: { trigger: grid, start: 'top 88%', toggleActions: 'play none none none' },
+      gsap.fromTo(items, { y: 24, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out',
+        clearProps: 'transform',
+        scrollTrigger: { trigger: grid, start: 'top 90%', once: true },
       });
     }
   });
@@ -72,8 +76,8 @@
   // Edition separator wipe
   document.querySelectorAll('.edition-separator').forEach(sep => {
     gsap.fromTo(sep, { opacity: 0, clipPath: 'inset(0 100% 0 0)' }, {
-      opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: sep, start: 'top 90%', toggleActions: 'play none none none' },
+      opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: sep, start: 'top 92%', once: true },
     });
   });
 
