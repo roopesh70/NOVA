@@ -6,6 +6,14 @@
   <title>Gallery — NOVA 5.0 | RIT Kottayam</title>
   <meta name="description" content="NOVA 5.0 Gallery — Full photo gallery with filter tabs, lightbox navigation and lazy loading." />
 
+  <!-- Favicon & Mobile App Icons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#020408" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Unbounded:wght@700;800;900&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -14,7 +22,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
-  <link rel="stylesheet" href="css/styles.css?v=5.0.2" />
+  <link rel="stylesheet" href="css/styles.css?v=5.0.4" />
   <style>
     .gallery-grid {
       columns: 4;
@@ -178,7 +186,9 @@
 
         <!-- Gallery Grid -->
         <div class="gallery-empty reveal-up" id="gallery-empty">
-          <div class="gallery-empty-icon">🌌</div>
+          <div class="gallery-empty-icon" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
+          </div>
           <h2 class="gallery-empty-title" id="gallery-heading">Gallery Coming Soon</h2>
           <p class="gallery-empty-text">Photos from NOVA 5.0 will be uploaded here after the event on October 24, 2026.</p>
           <div style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
@@ -199,38 +209,172 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer" role="contentinfo">
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer" id="footer" role="contentinfo">
+    <!-- 3D-Like Block Word 'NOVA 5.0' in Footer Background -->
+    <div class="footer-3d-bg" aria-hidden="true">
+      <div class="footer-3d-glow"></div>
+      <div class="footer-3d-block-wrap" id="footer-3d-block-wrap">
+        <div class="footer-3d-block-text" id="footer-3d-text">NOVA 5.0</div>
+      </div>
+    </div>
+
+    <!-- Retro-Futuristic Grid & Horizon -->
     <div class="footer-grid-scene" aria-hidden="true">
       <canvas class="footer-canvas" id="footer-canvas"></canvas>
       <div class="footer-moon"></div>
     </div>
-    <div class="footer-wordmark-row">
-      <div class="footer-wordmark" id="footer-wordmark" aria-hidden="true">
-        <span class="wm-letter">N</span><span class="wm-letter">O</span><span class="wm-letter">V</span><span class="wm-letter">A</span>
-        <span class="wm-dot">.</span><span class="wm-letter">5</span><span class="wm-dot">.</span><span class="wm-letter">0</span>
+
+    <div class="footer-content-wrap container">
+      <!-- Top Tier: Brand, Mission & Social Hub -->
+      <div class="footer-top-tier">
+        <div class="footer-brand-lockup">
+          <div class="footer-brand-header">
+            <img src="Logos/NOVA.png" alt="NOVA 5.0" class="footer-brand-logo" />
+            <div class="footer-brand-meta">
+              <span class="footer-edition-badge mono-label">5TH EDITION · 2026</span>
+              <span class="footer-status-pill"><span class="status-pulse-dot"></span> ORBITAL PHASE NOMINAL</span>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Kerala's Premier Inter-Collegiate Space & Technology Conclave. Fostering astronomical exploration, innovation, and aerospace engineering across Kerala's institutions.
+          </p>
+          <div class="footer-institution">
+            <span class="footer-inst-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v2H3V9z"/><path d="M4 22h16"/><path d="M6 11v9"/><path d="M10 11v9"/><path d="M14 11v9"/><path d="M18 11v9"/><path d="M2 22h20"/></svg>
+            </span>
+            <span>Organized by <strong>ISTE Students' Chapter RIT</strong> · Rajiv Gandhi Institute of Technology, Kottayam</span>
+          </div>
+        </div>
+
+        <!-- Official Transmission Channels -->
+        <div class="footer-social-hub">
+          <div class="footer-section-tag mono-label accent">// TRANSMISSION CHANNELS</div>
+          <div class="footer-social-cards">
+            <a href="https://www.instagram.com/nova_5.o" target="_blank" rel="noopener" class="footer-social-card" aria-label="Follow NOVA 5.0 on Instagram">
+              <div class="social-card-icon ig-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div class="social-card-text">
+                <span class="social-card-platform">Instagram</span>
+                <span class="social-card-handle">@nova_5.o</span>
+              </div>
+              <span class="social-card-arrow">↗</span>
+            </a>
+
+            <a href="https://www.linkedin.com/company/iste-sc-rit/" target="_blank" rel="noopener" class="footer-social-card" aria-label="Connect with ISTE SC RIT on LinkedIn">
+              <div class="social-card-icon li-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div class="social-card-text">
+                <span class="social-card-platform">LinkedIn</span>
+                <span class="social-card-handle">ISTE SC RIT</span>
+              </div>
+              <span class="social-card-arrow">↗</span>
+            </a>
+
+            <a href="mailto:istescrit@rit.ac.in" class="footer-social-card" aria-label="Email NOVA 5.0 Team">
+              <div class="social-card-icon mail-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="social-card-text">
+                <span class="social-card-platform">Official Email</span>
+                <span class="social-card-handle">istescrit@rit.ac.in</span>
+              </div>
+              <span class="social-card-arrow">↗</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="footer-links-row container">
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="/" class="footer-link">Home</a>
-        <a href="/#about" class="footer-link">About</a>
-        <a href="/#events" class="footer-link">Events</a>
-        <a href="/#coordinators" class="footer-link">Clubs</a>
-        <a href="/glimpses" class="footer-link">Glimpses</a>
-        <a href="/gallery" class="footer-link">Gallery</a>
-        <a href="/#contact" class="footer-link">Contact</a>
-      </nav>
-      <div class="footer-socials">
-        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="mailto:nova@rit.ac.in" aria-label="Email" class="social-icon-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </a>
+
+      <div class="footer-divider-line"></div>
+
+      <!-- Middle Tier: Navigation + Developed By -->
+      <div class="footer-mid-tier">
+        <!-- Navigation Expeditions -->
+        <div class="footer-nav-col">
+          <div class="footer-section-tag mono-label accent">// QUICK EXPEDITIONS</div>
+          <nav class="footer-nav-grid" aria-label="Footer navigation">
+            <a href="/" class="footer-nav-chip">Home</a>
+            <a href="/#about" class="footer-nav-chip">About</a>
+            <a href="/#events" class="footer-nav-chip">Events</a>
+            <a href="/#coordinators" class="footer-nav-chip">Clubs</a>
+            <a href="/#schedule" class="footer-nav-chip">Schedule</a>
+            <a href="/#venue" class="footer-nav-chip">Venue</a>
+            <a href="/glimpses" class="footer-nav-chip">Glimpses</a>
+            <a href="/gallery" class="footer-nav-chip">Gallery</a>
+            <a href="/#contact" class="footer-nav-chip">Contact</a>
+          </nav>
+        </div>
+
+        <!-- Developed By Section -->
+        <div class="footer-dev-col">
+          <div class="footer-dev-header">
+            <span class="footer-section-tag mono-label accent">// DEVELOPED BY</span>
+            <span class="dev-badge mono-label">CORE DEV TEAM</span>
+          </div>
+          <div class="footer-dev-cards">
+            <!-- AYSHA LINA -->
+            <a href="https://www.linkedin.com/in/aysha-lina-605789320/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Aysha Lina">
+              <div class="dev-avatar">
+                <span class="dev-initials">AL</span>
+              </div>
+              <div class="dev-info">
+                <span class="dev-name">AYSHA LINA</span>
+                <span class="dev-role mono-label">Frontend Developer</span>
+              </div>
+              <div class="dev-linkedin-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+            </a>
+
+            <!-- DANA MARIYAM -->
+            <a href="https://www.linkedin.com/in/dana-mariyam-bb5541373/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Dana Mariyam">
+              <div class="dev-avatar">
+                <span class="dev-initials">DM</span>
+              </div>
+              <div class="dev-info">
+                <span class="dev-name">DANA MARIYAM</span>
+                <span class="dev-role mono-label">Frontend Developer</span>
+              </div>
+              <div class="dev-linkedin-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+            </a>
+
+            <!-- ROOPESH KRISHNAN -->
+            <a href="https://www.linkedin.com/in/roopesh-krishnan-4bab00380/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Roopesh Krishnan">
+              <div class="dev-avatar">
+                <span class="dev-initials">RK</span>
+              </div>
+              <div class="dev-info">
+                <span class="dev-name">ROOPESH KRISHNAN</span>
+                <span class="dev-role mono-label">Creative & Web Dev</span>
+              </div>
+              <div class="dev-linkedin-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="footer-bottom container">
-      <p class="footer-copy mono-label dim">© 2026 NOVA · RIT Kottayam. All rights reserved.</p>
+
+      <!-- Bottom Tier: Legal & Back to Top -->
+      <div class="footer-bottom-tier">
+        <div class="footer-legal">
+          <p class="footer-copy mono-label">
+            © 2026 NOVA 5.0 · <strong>ISTE Students' Chapter RIT</strong>. All rights reserved.
+          </p>
+          <p class="footer-subcopy mono-label dim">
+            Rajiv Gandhi Institute of Technology, Pampady, Kottayam, Kerala 686501
+          </p>
+        </div>
+
+        <button class="footer-back-to-top" id="footer-back-to-top" aria-label="Scroll back to top">
+          <span>BACK TO TOP</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </div>
     </div>
   </footer>
 
@@ -245,6 +389,6 @@
     </div>
   </div>
 
-  <script src="js/gallery.js?v=5.0.2"></script>
+  <script src="js/gallery.js?v=5.0.4"></script>
 </body>
 </html>
