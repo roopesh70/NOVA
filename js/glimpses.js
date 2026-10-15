@@ -5,6 +5,10 @@
 (function () {
   'use strict';
 
+  try {
+    sessionStorage.setItem('nova_entered', 'true');
+  } catch (e) {}
+
   /* ── Lenis ── */
   const lenis = new Lenis({
     duration: 1.4,
@@ -134,14 +138,24 @@
     window.addEventListener('resize', draw, { passive: true });
   }
 
-  /* ── Footer wordmark + moon ── */
-  const letters = document.querySelectorAll('.footer-wordmark .wm-letter, .footer-wordmark .wm-dot');
-  if (letters.length) {
-    gsap.from(letters, { yPercent: 100, opacity: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out', scrollTrigger: { trigger: '.footer-wordmark', start: 'top 92%', once: true } });
+  /* ── Footer 3D block text + moon + back to top ── */
+  const blockWrap = document.getElementById('footer-3d-block-wrap');
+  if (blockWrap) {
+    const isMobile = window.innerWidth <= 768;
+    const targetRotate = isMobile ? 8 : 14;
+    gsap.fromTo(blockWrap, { y: 30, opacity: 0, rotateX: 20 }, { y: 0, opacity: 1, rotateX: targetRotate, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.footer', start: 'top 90%', once: true } });
   }
   const moon = document.querySelector('.footer-moon');
   if (moon) {
     gsap.fromTo(moon, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '.footer-grid-scene', start: 'top 85%', once: true } });
+  }
+  const backToTopBtn = document.getElementById('footer-back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.4 }); }
+      else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
   }
 
   /* ── Page transition ── */

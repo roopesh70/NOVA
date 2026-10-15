@@ -33,10 +33,107 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
-  <link rel="stylesheet" href="css/styles.css?v=5.0.6" />
+  <link rel="stylesheet" href="css/styles.css?v=5.0.7" />
+  <!-- Anti-flicker: instantly hide preloader if user already entered this session -->
+  <script>
+    (function () {
+      try {
+        if (sessionStorage.getItem('nova_entered') === 'true') {
+          document.documentElement.classList.add('nova-already-entered');
+        }
+      } catch (e) { }
+    })();
+  </script>
 </head>
 
 <body class="at-hero-top">
+  <!-- ═══════════════════ SITE INTRO / ENTRY PRELOADER ═══════════════════ -->
+  <aside class="site-preloader" id="site-preloader" aria-label="Loading NOVA 5.0" role="status" aria-live="polite">
+    <!-- Ambient Sci-Fi Background Glow & Grid -->
+    <div class="preloader-bg-glow" aria-hidden="true"></div>
+    <div class="preloader-grid-lines" aria-hidden="true"></div>
+
+    <!-- HUD Frame Corners -->
+    <div class="preloader-hud-corners" aria-hidden="true">
+      <span class="hud-corner top-left"></span>
+      <span class="hud-corner top-right"></span>
+      <span class="hud-corner bottom-left"></span>
+      <span class="hud-corner bottom-right"></span>
+    </div>
+
+    <!-- Top Telemetry Bar -->
+    <div class="preloader-top-bar">
+      <div class="preloader-sys-info mono-label">
+        <span class="preloader-pulse-dot"></span>
+        <span>SYS_INIT // NOVA 5.0 · ORBITAL CONCLAVE</span>
+      </div>
+      <button type="button" class="preloader-skip-btn mono-label" id="preloader-skip-btn" aria-label="Skip intro animation">
+        <span>SKIP INTRO</span>
+        <span class="skip-key-tag">[ESC]</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </button>
+    </div>
+
+    <!-- Center Console Area -->
+    <div class="preloader-center-console">
+      <!-- Orbital Telemetry Rings and Logo -->
+      <div class="preloader-orbital-wrap">
+        <!-- Outer Rotating Dashed Ring -->
+        <svg class="preloader-ring ring-outer" viewBox="0 0 240 240" aria-hidden="true">
+          <circle cx="120" cy="120" r="110" stroke="rgba(25, 227, 255, 0.22)" stroke-width="1.5" stroke-dasharray="6 8" fill="none" />
+          <circle cx="120" cy="120" r="110" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="40 180" stroke-linecap="round" fill="none" />
+          <line x1="120" y1="2" x2="120" y2="12" stroke="var(--accent)" stroke-width="2" />
+          <line x1="120" y1="228" x2="120" y2="238" stroke="var(--accent)" stroke-width="2" />
+          <line x1="2" y1="120" x2="12" y2="120" stroke="var(--accent)" stroke-width="2" />
+          <line x1="228" y1="120" x2="238" y2="120" stroke="var(--accent)" stroke-width="2" />
+        </svg>
+
+        <!-- Inner Counter-Rotating Ring -->
+        <svg class="preloader-ring ring-inner" viewBox="0 0 180 180" aria-hidden="true">
+          <circle cx="90" cy="90" r="82" stroke="rgba(25, 227, 255, 0.15)" stroke-width="1" stroke-dasharray="3 6" fill="none" />
+          <circle cx="90" cy="90" r="82" stroke="var(--accent)" stroke-width="2" stroke-dasharray="25 120" stroke-linecap="round" fill="none" />
+        </svg>
+
+        <!-- Glowing Core Backdrop -->
+        <div class="preloader-core-glow" aria-hidden="true"></div>
+
+        <!-- Official NOVA 5.0 Emblem -->
+        <div class="preloader-emblem-box">
+          <img src="Logos/NOVA.png" alt="NOVA 5.0" class="preloader-emblem-img" />
+          <div class="preloader-emblem-badge mono-label">NOVA 5.0</div>
+        </div>
+      </div>
+
+      <!-- Telemetry Status & Progress Bar -->
+      <div class="preloader-telemetry-box">
+        <div class="preloader-status-row">
+          <div class="preloader-stage-indicator mono-label">
+            <span class="stage-dot"></span>
+            <span class="preloader-msg" id="preloader-msg">INITIALIZING ORBITAL PROTOCOLS...</span>
+          </div>
+          <div class="preloader-counter mono-label" id="preloader-counter">00%</div>
+        </div>
+
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-bar" id="preloader-progress-bar">
+            <span class="progress-glow-streak"></span>
+          </div>
+        </div>
+
+        <div class="preloader-coords-row mono-label dim">
+          <span>LAT 09°34'43"N · LON 76°37'22"E</span>
+          <span>RIT KOTTAYAM · OCT 24, 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Telemetry Footer -->
+    <div class="preloader-bottom-bar mono-label dim">
+      <span>KERALA'S PREMIER INTER-COLLEGIATE SPACE & TECHNOLOGY CONCLAVE</span>
+      <span>ISTE SC RIT // ASTRONOMY WING</span>
+    </div>
+  </aside>
+
   <!-- Skip to content -->
   <a href="#main-content" class="skip-link">Skip to content</a>
 
@@ -721,41 +818,41 @@
 
           <div class="logo-grid reveal-up" style="--delay:0.2s" id="logo-grid">
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/Celestials-The Astronomy Club of IIST.png" alt="Celestials — IIST" class="logo-img"
+              <img src="Logos/celestials_clean.png" alt="Celestials — IIST" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">Celestials</span>
               <span class="logo-college mono-label">IIST</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/Vyom Space Club - College Of Engineering Perumon_.jpg" alt="Vyom — CEP" class="logo-img"
+              <img src="Logos/vyom_clean.png" alt="Vyom — CEP" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">Vyom</span>
               <span class="logo-college mono-label">CEP</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/Astronomical Society of RIT-RIT,KOTTAYAM.png" alt="Astronomical Society — RIT"
+              <img src="Logos/rit_clean.png" alt="Astronomical Society — RIT"
                 class="logo-img" loading="lazy" />
               <span class="logo-club-name">Astronomical Society</span>
               <span class="logo-college mono-label">RIT</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/Nexora LBSITW_.jpg" alt="Nexora — LBSITW" class="logo-img" loading="lazy" />
+              <img src="Logos/nexora_clean.png" alt="Nexora — LBSITW" class="logo-img" loading="lazy" />
               <span class="logo-club-name">Nexora</span>
               <span class="logo-college mono-label">LBSITW</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/orion.png" alt="Orion — GECW" class="logo-img" loading="lazy" />
+              <img src="Logos/orion_clean.png" alt="Orion — GECW" class="logo-img" loading="lazy" />
               <span class="logo-club-name">Orion</span>
               <span class="logo-college mono-label">GECW</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/astron logo TKM College of Engineering, Kollam.png" alt="Astron — TKMCE" class="logo-img"
+              <img src="Logos/astron_clean.png" alt="Astron — TKMCE" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">Astron</span>
               <span class="logo-college mono-label">TKMCE</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/CELESTIA - NSS College of Engineering.png" alt="Celestia — NSSCE" class="logo-img"
+              <img src="Logos/celestia_clean.png" alt="Celestia — NSSCE" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">Celestia</span>
               <span class="logo-college mono-label">NSSCE</span>
@@ -766,24 +863,24 @@
               <span class="logo-college mono-label">CET</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/ASTRAL SPACE CLUB_ GEC THRISSUR.png" alt="Astral Space Club — GECT" class="logo-img"
+              <img src="Logos/astral_clean.png" alt="Astral Space Club — GECT" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">Astral Space Club</span>
               <span class="logo-college mono-label">GECT</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/CalypsoGCEK (1).png" alt="Calypso — GCEK" class="logo-img" loading="lazy" />
+              <img src="Logos/calypso_clean.png" alt="Calypso — GCEK" class="logo-img" loading="lazy" />
               <span class="logo-club-name">Calypso</span>
               <span class="logo-college mono-label">GCEK</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/AISA_Mar AthanasiusCollegeofEngineering.jpg" alt="AISA — MACE" class="logo-img"
+              <img src="Logos/aisa_clean.png" alt="AISA — MACE" class="logo-img"
                 loading="lazy" />
               <span class="logo-club-name">AISA</span>
               <span class="logo-college mono-label">MACE</span>
             </div>
             <div class="logo-tile" tabindex="0">
-              <img src="Logos/IRES logo white.png" alt="IRES — CUSAT" class="logo-img" loading="lazy" />
+              <img src="Logos/ires_clean.png" alt="IRES — CUSAT" class="logo-img" loading="lazy" />
               <span class="logo-club-name">IRES</span>
               <span class="logo-college mono-label">CUSAT</span>
             </div>
@@ -815,30 +912,34 @@
           </div>
 
           <div class="glimpses-preview-grid reveal-up" style="--delay:0.2s">
-            <div class="glimpse-card placeholder-card">
-              <div class="placeholder-inner">
-                <span class="mono-label dim">NOVA 4.0 · GLIMPSE</span>
-                <span class="placeholder-text">Moments from NOVA 4.0</span>
+            <a href="/glimpses" class="glimpse-card" aria-label="NOVA 4.0 Stage Inauguration">
+              <img src="glimpses/nova4/nova4_stage.webp" alt="NOVA 4.0 Stage Inauguration" class="glimpse-card-img" loading="lazy" />
+              <div class="glimpse-card-overlay">
+                <span class="glimpse-card-edition">NOVA 4.0</span>
+                <span class="glimpse-card-title">Stage Inauguration</span>
               </div>
-            </div>
-            <div class="glimpse-card placeholder-card tall">
-              <div class="placeholder-inner">
-                <span class="mono-label dim">NOVA 4.0 · GLIMPSE</span>
-                <span class="placeholder-text">Photos coming soon</span>
+            </a>
+            <a href="/glimpses" class="glimpse-card" aria-label="NOVA 4.0 Organizing Team">
+              <img src="glimpses/nova4/nova4_team.webp" alt="NOVA 4.0 Organizing Team" class="glimpse-card-img" loading="lazy" />
+              <div class="glimpse-card-overlay">
+                <span class="glimpse-card-edition">NOVA 4.0</span>
+                <span class="glimpse-card-title">Organizing Team</span>
               </div>
-            </div>
-            <div class="glimpse-card placeholder-card">
-              <div class="placeholder-inner">
-                <span class="mono-label dim">NOVA 3.0 · GLIMPSE</span>
-                <span class="placeholder-text">Moments from NOVA 3.0</span>
+            </a>
+            <a href="/glimpses" class="glimpse-card" aria-label="NOVA 3.0 Grand Stage Setup">
+              <img src="glimpses/nova3/nova3_stage.webp" alt="NOVA 3.0 Grand Stage Setup" class="glimpse-card-img" loading="lazy" />
+              <div class="glimpse-card-overlay">
+                <span class="glimpse-card-edition">NOVA 3.0</span>
+                <span class="glimpse-card-title">Grand Stage Setup</span>
               </div>
-            </div>
-            <div class="glimpse-card placeholder-card tall">
-              <div class="placeholder-inner">
-                <span class="mono-label dim">NOVA 3.0 · GLIMPSE</span>
-                <span class="placeholder-text">Photos coming soon</span>
+            </a>
+            <a href="/glimpses" class="glimpse-card" aria-label="NOVA 3.0 Lamp Lighting Ceremony">
+              <img src="glimpses/nova3/nova3_lamp.webp" alt="NOVA 3.0 Lamp Lighting Ceremony" class="glimpse-card-img" loading="lazy" />
+              <div class="glimpse-card-overlay">
+                <span class="glimpse-card-edition">NOVA 3.0</span>
+                <span class="glimpse-card-title">Lamp Lighting Ceremony</span>
               </div>
-            </div>
+            </a>
           </div>
 
           <div class="glimpses-cta reveal-up" style="--delay:0.3s">

@@ -6,6 +6,28 @@
 (function () {
   'use strict';
 
+  // Check if user has already entered the site during this session
+  const preloaderEl = document.getElementById('site-preloader');
+  let hasEntered = false;
+  try {
+    hasEntered = sessionStorage.getItem('nova_entered') === 'true';
+  } catch (e) {
+    hasEntered = false;
+  }
+
+  if (hasEntered && preloaderEl) {
+    preloaderEl.style.display = 'none';
+    document.body.classList.remove('is-loading');
+  } else if (!hasEntered && preloaderEl) {
+    document.body.classList.add('is-loading');
+  }
+
+  // Ensure fresh, consistent state on page reload (avoids premature hero scroll scrub)
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   /* ─────────────────────────────────────────────
      1.  LENIS  — smooth scrolling
      ───────────────────────────────────────────── */
@@ -629,19 +651,138 @@
   /* ─────────────────────────────────────────────
      6.  HERO — entrance animation on load
      ───────────────────────────────────────────── */
-  const heroTl = gsap.timeline({ delay: 0.15 });
+  const heroTl = gsap.timeline({ delay: 0.15, paused: !hasEntered });
   heroTl
-    .from('.hero-logos-bar .hero-logo-item', {
-      opacity: 0,
-      y: -12,
-      duration: 0.5,
-      stagger: 0.025,
-      ease: 'power2.out',
-    })
+    .fromTo(
+      '.hero-logos-bar .hero-logo-item',
+      { opacity: 0, y: -10 },
+      {
+        opacity: 0.95,
+        y: 0,
+        duration: 0.45,
+        stagger: 0.02,
+        ease: 'power2.out',
+        clearProps: 'opacity,transform',
+      }
+    )
     .from('.hero-edition-of', { opacity: 0, y: 10, duration: 0.45, ease: 'power2.out' }, '-=0.25')
     .from('.hero-nova-logo', { opacity: 0, scale: 0.93, duration: 0.75, ease: 'power3.out' }, '-=0.35')
     .from('.hero-college-name', { opacity: 0, y: 12, duration: 0.55, ease: 'power3.out' }, '-=0.3')
     .from('.hero-scroll-hint', { opacity: 0, duration: 0.4 }, '-=0.15');
+
+  function triggerHeroIntro() {
+    if (heroTl.paused()) {
+      heroTl.play();
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+     6.1 SITE ENTRY INTRO PRELOADER CONTROLLER
+     Only runs on initial website entry per session
+     ───────────────────────────────────────────── */
+  (function initSitePreloader() {
+    if (hasEntered || !preloaderEl) {
+      if (preloaderEl) preloaderEl.style.display = 'none';
+      document.body.classList.remove('is-loading');
+      triggerHeroIntro();
+      return;
+    }
+
+    document.body.classList.add('is-loading');
+    if (window.lenis) window.lenis.stop();
+
+    const progressBar = document.getElementById('preloader-progress-bar');
+    const progressCounter = document.getElementById('preloader-counter');
+    const progressMsg = document.getElementById('preloader-msg');
+    const skipBtn = document.getElementById('preloader-skip-btn');
+
+    let isDismissed = false;
+
+    const stages = [
+      { at: 0, text: 'INITIALIZING NOVA 5.0 CORE ARCHITECTURE...' },
+      { at: 26, text: 'SYNCHRONIZING INTER-COLLEGIATE NODES...' },
+      { at: 58, text: 'CALIBRATING OBSERVATORY TELEMETRY...' },
+      { at: 85, text: 'SYSTEMS NOMINAL · ORBITAL INSERTION CONFIRMED' },
+      { at: 100, text: 'SYSTEM OPERATIONAL // ENTERING NOVA 5.0' }
+    ];
+
+    function updateStageText(pct) {
+      if (!progressMsg) return;
+      for (let i = stages.length - 1; i >= 0; i--) {
+        if (pct >= stages[i].at) {
+          if (progressMsg.textContent !== stages[i].text) {
+            progressMsg.textContent = stages[i].text;
+          }
+          break;
+        }
+      }
+    }
+
+    function dismissPreloader() {
+      if (isDismissed) return;
+      isDismissed = true;
+      try {
+        sessionStorage.setItem('nova_entered', 'true');
+      } catch (e) {}
+
+      if (progressCounter) progressCounter.textContent = '100%';
+      if (progressBar) progressBar.style.width = '100%';
+      if (progressMsg) progressMsg.textContent = 'SYSTEM OPERATIONAL // ENTERING NOVA 5.0';
+
+      setTimeout(() => {
+        preloaderEl.classList.add('dismissing');
+        triggerHeroIntro();
+        document.body.classList.remove('is-loading');
+        if (window.lenis) window.lenis.start();
+
+        setTimeout(() => {
+          preloaderEl.style.display = 'none';
+        }, 700);
+      }, 250);
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        dismissPreloader();
+      });
+    }
+
+    document.addEventListener('keydown', function onPreloaderKey(e) {
+      if (isDismissed) {
+        document.removeEventListener('keydown', onPreloaderKey);
+        return;
+      }
+      if (e.key === 'Escape' || e.key === ' ') {
+        e.preventDefault();
+        dismissPreloader();
+      }
+    });
+
+    const startTime = performance.now();
+    const duration = 2100; // ms
+
+    function animateProgress(now) {
+      if (isDismissed) return;
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      // High-tech ease curve: quick pickup, steady glide, smooth lock
+      const eased = Math.min(1, Math.pow(progress, 0.88));
+      const currentPercent = Math.min(100, Math.floor(eased * 100));
+
+      if (progressBar) progressBar.style.width = `${currentPercent}%`;
+      if (progressCounter) progressCounter.textContent = `${String(currentPercent).padStart(2, '0')}%`;
+      updateStageText(currentPercent);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateProgress);
+      } else {
+        dismissPreloader();
+      }
+    }
+
+    requestAnimationFrame(animateProgress);
+  })();
 
   // Sync hero top state for seamless navbar auto-reveal on scroll
   function updateNavHeroState() {
@@ -1372,7 +1513,9 @@
       const badge = document.createElement('div');
       badge.className = 'modal-no-poster-badge';
       badge.innerHTML = `
-        <div class="modal-no-poster-icon">🚀</div>
+        <div class="modal-no-poster-icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        </div>
         <h4 class="modal-no-poster-title">NOVA 5.0</h4>
         <span class="modal-no-poster-sub mono-label">OFFICIAL INAUGURAL CEREMONY</span>
         <div style="margin-top:16px; padding:12px 16px; background:rgba(25,227,255,0.08); border-radius:8px; border:1px solid rgba(25,227,255,0.25);">
@@ -1449,7 +1592,7 @@
         a.href = `tel:${cleanPhone}`;
         a.className = 'modal-contact-chip';
         a.setAttribute('aria-label', `Call coordinator ${q.name} at ${q.phone}`);
-        a.innerHTML = `<span>📞</span> <span><strong>${q.name}:</strong> ${q.phone}</span>`;
+        a.innerHTML = `<span class="contact-icon" style="display:inline-flex; align-items:center; color:var(--accent); margin-right:4px;" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span><strong>${q.name}:</strong> ${q.phone}</span>`;
         contactsList.appendChild(a);
       });
       document.getElementById('modal-contact-section').style.display = 'flex';
@@ -1562,14 +1705,8 @@
   } catch (err) {}
 
   /* ─────────────────────────────────────────────
-     10.  LOGO TILES  — grayscale ↔ color on hover
+     10.  LOGO TILES  — handled via pure CSS (.logo-tile:hover .logo-img)
      ───────────────────────────────────────────── */
-  document.querySelectorAll('.logo-tile').forEach((tile) => {
-    const img = tile.querySelector('.logo-img');
-    if (!img) return;
-    tile.addEventListener('mouseenter', () => gsap.to(img, { filter: 'grayscale(0%) brightness(1.15)', duration: 0.2 }));
-    tile.addEventListener('mouseleave', () => gsap.to(img, { filter: 'grayscale(100%) brightness(0.85)', duration: 0.25 }));
-  });
 
   /* ─────────────────────────────────────────────
      11.  LIGHTBOX
@@ -1617,13 +1754,13 @@
   if (emailLink) {
     emailLink.addEventListener('click', (e) => {
       e.preventDefault();
-      navigator.clipboard.writeText('nova@rit.ac.in').then(() => {
+      navigator.clipboard.writeText('istescrit@rit.ac.in').then(() => {
         if (copyToast) {
           copyToast.classList.add('show');
           setTimeout(() => copyToast.classList.remove('show'), 2000);
         }
       }).catch(() => {
-        window.location.href = 'mailto:nova@rit.ac.in';
+        window.location.href = 'mailto:istescrit@rit.ac.in';
       });
     });
   }
@@ -1713,21 +1850,55 @@
   initFooterCanvas();
 
   /* ─────────────────────────────────────────────
-     15.  FOOTER — wordmark stagger + moon rise
+     15.  FOOTER — 3D block wordmark + tilt + moon rise + back to top
      ───────────────────────────────────────────── */
-  const wmLetters = document.querySelectorAll('.footer-wordmark .wm-letter, .footer-wordmark .wm-dot');
-  if (wmLetters.length) {
-    gsap.from(wmLetters, {
-      yPercent: 100,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.04,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.footer-wordmark',
-        start: 'top 92%',
-        once: true,
-      },
+  const blockWrap = document.getElementById('footer-3d-block-wrap');
+  if (blockWrap) {
+    const isMobile = window.innerWidth <= 768;
+    const targetRotate = isMobile ? 8 : 14;
+    gsap.fromTo(
+      blockWrap,
+      { y: 30, opacity: 0, rotateX: 20 },
+      {
+        y: 0,
+        opacity: 1,
+        rotateX: targetRotate,
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.footer',
+          start: 'top 90%',
+          once: true,
+        },
+      }
+    );
+  }
+
+  // Interactive 3D mouse parallax on footer hover
+  const footerEl = document.getElementById('footer');
+  if (footerEl && blockWrap && window.matchMedia('(pointer: fine)').matches) {
+    footerEl.addEventListener('mousemove', (e) => {
+      const rect = footerEl.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      gsap.to(blockWrap, {
+        rotateX: 14 - ny * 8,
+        rotateY: nx * 8,
+        xPercent: nx * 1.5,
+        duration: 0.5,
+        ease: 'power1.out',
+        overwrite: 'auto',
+      });
+    });
+    footerEl.addEventListener('mouseleave', () => {
+      gsap.to(blockWrap, {
+        rotateX: 14,
+        rotateY: 0,
+        xPercent: 0,
+        duration: 0.9,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      });
     });
   }
 
@@ -1749,6 +1920,19 @@
         },
       }
     );
+  }
+
+  // Back to Top smooth scroll
+  const backToTopBtn = document.getElementById('footer-back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { duration: 1.4 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
   }
 
   /* ─────────────────────────────────────────────
