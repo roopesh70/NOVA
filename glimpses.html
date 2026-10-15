@@ -22,7 +22,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
-  <link rel="stylesheet" href="css/styles.css?v=5.0.4" />
+  <link rel="stylesheet" href="css/styles.css?v=5.0.6" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -76,7 +76,7 @@
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <div class="mobile-menu-header">
       <span class="mono-label accent">SYSTEM NAVIGATION // NOVA 5.0</span>
-      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">✕</button>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a href="index.html" class="mobile-nav-link"><span class="mob-nav-num mono-label accent">01</span><span class="mob-nav-text">Home</span></a>
@@ -306,183 +306,159 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
   <!-- ═══════════════════ FOOTER ═══════════════════ -->
   <footer class="footer" id="footer" role="contentinfo">
-    <!-- 3D-Like Block Word 'NOVA 5.0' in Footer Background -->
-    <div class="footer-3d-bg" aria-hidden="true">
-      <div class="footer-3d-glow"></div>
-      <div class="footer-3d-block-wrap" id="footer-3d-block-wrap">
-        <div class="footer-3d-block-text" id="footer-3d-text">NOVA 5.0</div>
+    <!-- Perspective Grid Horizon Scene with 3D Block Wordmark (SUBLEVEL.26 aesthetic) -->
+    <div class="footer-hero-scene">
+      <div class="footer-grid-scene" aria-hidden="true">
+        <canvas class="footer-canvas" id="footer-canvas"></canvas>
+        <div class="footer-moon"></div>
+      </div>
+
+      <!-- Giant 3D-Like Block Word 'NOVA 5.0' -->
+      <div class="footer-wordmark-wrap" id="footer-3d-block-wrap">
+        <div class="footer-wordmark-3d" id="footer-3d-text">NOVA 5.0</div>
       </div>
     </div>
 
-    <!-- Retro-Futuristic Grid & Horizon -->
-    <div class="footer-grid-scene" aria-hidden="true">
-      <canvas class="footer-canvas" id="footer-canvas"></canvas>
-      <div class="footer-moon"></div>
-    </div>
-
-    <div class="footer-content-wrap container">
-      <!-- Top Tier: Brand, Mission & Social Hub -->
-      <div class="footer-top-tier">
-        <div class="footer-brand-lockup">
-          <div class="footer-brand-header">
-            <img src="Logos/NOVA.png" alt="NOVA 5.0" class="footer-brand-logo" />
-            <div class="footer-brand-meta">
-              <span class="footer-edition-badge mono-label">5TH EDITION · 2026</span>
-              <span class="footer-status-pill"><span class="status-pulse-dot"></span> ORBITAL PHASE NOMINAL</span>
-            </div>
+    <!-- Minimalist Content Grid (Skillforge & Place-X aesthetic) -->
+    <div class="footer-main container">
+      <div class="footer-grid-cols">
+        <!-- Col 1: Brand & Chapter Info -->
+        <div class="footer-col footer-col-brand">
+          <div class="footer-brand-title">
+            <span class="footer-brand-iste">ISTE SC RIT</span>
+            <span class="footer-brand-sep">·</span>
+            <span class="footer-brand-nova">NOVA 5.0</span>
           </div>
           <p class="footer-brand-desc">
-            Kerala's Premier Inter-Collegiate Space & Technology Conclave. Fostering astronomical exploration, innovation, and aerospace engineering across Kerala's institutions.
+            Kerala's Premier Inter-Collegiate Space &amp; Technology Conclave.
           </p>
-          <div class="footer-institution">
-            <span class="footer-inst-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v2H3V9z"/><path d="M4 22h16"/><path d="M6 11v9"/><path d="M10 11v9"/><path d="M14 11v9"/><path d="M18 11v9"/><path d="M2 22h20"/></svg>
-            </span>
-            <span>Organized by <strong>ISTE Students' Chapter RIT</strong> · Rajiv Gandhi Institute of Technology, Kottayam</span>
+          <p class="footer-inst-text">
+            Rajiv Gandhi Institute of Technology, Vellore P.O, Pampady, Kottayam, Kerala 686501
+          </p>
+          <a href="https://www.rit.ac.in" target="_blank" rel="noopener" class="footer-text-link">
+            RIT Official Website ↗
+          </a>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col footer-col-links">
+          <h4 class="footer-col-heading">QUICK LINKS</h4>
+          <ul class="footer-links-list">
+            <li><a href="/" class="footer-link-item">Home</a></li>
+            <li><a href="/#about" class="footer-link-item">About</a></li>
+            <li><a href="/#events" class="footer-link-item">Events &amp; Workshops</a></li>
+            <li><a href="/#coordinators" class="footer-link-item">Space Clubs</a></li>
+            <li><a href="/#schedule" class="footer-link-item">Schedule</a></li>
+            <li><a href="/#venue" class="footer-link-item">Venue</a></li>
+            <li><a href="/glimpses" class="footer-link-item">Glimpses</a></li>
+            <li><a href="/gallery" class="footer-link-item">Gallery</a></li>
+            <li><a href="/#contact" class="footer-link-item">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Connect With Us -->
+        <div class="footer-col footer-col-connect">
+          <h4 class="footer-col-heading">CONNECT WITH US</h4>
+          <div class="footer-social-icons">
+            <a href="https://www.instagram.com/nova_5.o" target="_blank" rel="noopener" class="footer-icon-btn" aria-label="Instagram" title="Instagram: @nova_5.o">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/iste-sc-rit/" target="_blank" rel="noopener" class="footer-icon-btn" aria-label="LinkedIn" title="LinkedIn: ISTE SC RIT">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="mailto:istescrit@rit.ac.in" class="footer-icon-btn" aria-label="Email" title="Email: istescrit@rit.ac.in">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+          <div class="footer-email-box">
+            <a href="mailto:istescrit@rit.ac.in" class="footer-email-link">istescrit@rit.ac.in</a>
           </div>
         </div>
 
-        <!-- Official Transmission Channels -->
-        <div class="footer-social-hub">
-          <div class="footer-section-tag mono-label accent">// TRANSMISSION CHANNELS</div>
-          <div class="footer-social-cards">
-            <a href="https://www.instagram.com/nova_5.o" target="_blank" rel="noopener" class="footer-social-card" aria-label="Follow NOVA 5.0 on Instagram">
-              <div class="social-card-icon ig-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </div>
-              <div class="social-card-text">
-                <span class="social-card-platform">Instagram</span>
-                <span class="social-card-handle">@nova_5.o</span>
-              </div>
-              <span class="social-card-arrow">↗</span>
+        <!-- Col 4: Developed By (Skillforge & Place-X clean stacked typography) -->
+        <div class="footer-col footer-col-dev">
+          <h4 class="footer-col-heading">DEVELOPED BY</h4>
+          <div class="footer-dev-list">
+            <a href="https://www.linkedin.com/in/aysha-lina-605789320/" target="_blank" rel="noopener" class="footer-dev-name">
+              AYSHA LINA
             </a>
-
-            <a href="https://www.linkedin.com/company/iste-sc-rit/" target="_blank" rel="noopener" class="footer-social-card" aria-label="Connect with ISTE SC RIT on LinkedIn">
-              <div class="social-card-icon li-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-              <div class="social-card-text">
-                <span class="social-card-platform">LinkedIn</span>
-                <span class="social-card-handle">ISTE SC RIT</span>
-              </div>
-              <span class="social-card-arrow">↗</span>
+            <a href="https://www.linkedin.com/in/dana-mariyam-bb5541373/" target="_blank" rel="noopener" class="footer-dev-name">
+              DANA MARIYAM
             </a>
-
-            <a href="mailto:istescrit@rit.ac.in" class="footer-social-card" aria-label="Email NOVA 5.0 Team">
-              <div class="social-card-icon mail-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div class="social-card-text">
-                <span class="social-card-platform">Official Email</span>
-                <span class="social-card-handle">istescrit@rit.ac.in</span>
-              </div>
-              <span class="social-card-arrow">↗</span>
+            <a href="https://www.linkedin.com/in/roopesh-krishnan-4bab00380/" target="_blank" rel="noopener" class="footer-dev-name">
+              ROOPESH KRISHNAN
             </a>
           </div>
         </div>
       </div>
 
-      <div class="footer-divider-line"></div>
+      <!-- Clean Divider Line -->
+      <div class="footer-bottom-line"></div>
 
-      <!-- Middle Tier: Navigation + Developed By -->
-      <div class="footer-mid-tier">
-        <!-- Navigation Expeditions -->
-        <div class="footer-nav-col">
-          <div class="footer-section-tag mono-label accent">// QUICK EXPEDITIONS</div>
-          <nav class="footer-nav-grid" aria-label="Footer navigation">
-            <a href="/" class="footer-nav-chip">Home</a>
-            <a href="/#about" class="footer-nav-chip">About</a>
-            <a href="/#events" class="footer-nav-chip">Events</a>
-            <a href="/#coordinators" class="footer-nav-chip">Clubs</a>
-            <a href="/#schedule" class="footer-nav-chip">Schedule</a>
-            <a href="/#venue" class="footer-nav-chip">Venue</a>
-            <a href="/glimpses" class="footer-nav-chip">Glimpses</a>
-            <a href="/gallery" class="footer-nav-chip">Gallery</a>
-            <a href="/#contact" class="footer-nav-chip">Contact</a>
-          </nav>
-        </div>
-
-        <!-- Developed By Section -->
-        <div class="footer-dev-col">
-          <div class="footer-dev-header">
-            <span class="footer-section-tag mono-label accent">// DEVELOPED BY</span>
-            <span class="dev-badge mono-label">CORE DEV TEAM</span>
-          </div>
-          <div class="footer-dev-cards">
-            <!-- AYSHA LINA -->
-            <a href="https://www.linkedin.com/in/aysha-lina-605789320/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Aysha Lina">
-              <div class="dev-avatar">
-                <span class="dev-initials">AL</span>
-              </div>
-              <div class="dev-info">
-                <span class="dev-name">AYSHA LINA</span>
-                <span class="dev-role mono-label">Frontend Developer</span>
-              </div>
-              <div class="dev-linkedin-icon">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-            </a>
-
-            <!-- DANA MARIYAM -->
-            <a href="https://www.linkedin.com/in/dana-mariyam-bb5541373/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Dana Mariyam">
-              <div class="dev-avatar">
-                <span class="dev-initials">DM</span>
-              </div>
-              <div class="dev-info">
-                <span class="dev-name">DANA MARIYAM</span>
-                <span class="dev-role mono-label">Frontend Developer</span>
-              </div>
-              <div class="dev-linkedin-icon">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-            </a>
-
-            <!-- ROOPESH KRISHNAN -->
-            <a href="https://www.linkedin.com/in/roopesh-krishnan-4bab00380/" target="_blank" rel="noopener" class="dev-card" aria-label="LinkedIn profile of Roopesh Krishnan">
-              <div class="dev-avatar">
-                <span class="dev-initials">RK</span>
-              </div>
-              <div class="dev-info">
-                <span class="dev-name">ROOPESH KRISHNAN</span>
-                <span class="dev-role mono-label">Creative & Web Dev</span>
-              </div>
-              <div class="dev-linkedin-icon">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Tier: Legal & Back to Top -->
-      <div class="footer-bottom-tier">
-        <div class="footer-legal">
-          <p class="footer-copy mono-label">
-            © 2026 NOVA 5.0 · <strong>ISTE Students' Chapter RIT</strong>. All rights reserved.
-          </p>
-          <p class="footer-subcopy mono-label dim">
-            Rajiv Gandhi Institute of Technology, Pampady, Kottayam, Kerala 686501
-          </p>
-        </div>
-
-        <button class="footer-back-to-top" id="footer-back-to-top" aria-label="Scroll back to top">
-          <span>BACK TO TOP</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        </button>
+      <!-- Bottom Copyright & Back to Top -->
+      <div class="footer-bottom-row">
+        <p class="footer-copyright">
+          © 2026 NOVA 5.0 by ISTE SC RIT. All rights reserved.
+        </p>
+        <a href="#hero" class="footer-back-link" id="footer-back-to-top">
+          Back to top ↑
+        </a>
       </div>
     </div>
   </footer>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">✕</button>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <img class="lightbox-img" id="lightbox-img" src="" alt="" />
     <p class="lightbox-caption" id="lightbox-caption"></p>
   </div>
 
-  <script src="js/glimpses.js?v=5.0.4"></script>
+  <!-- Floating Cosmic Game Button (NOVA: Cosmic Rush) -->
+  <a href="https://cosmic-rush.vercel.app/" target="_blank" rel="noopener noreferrer" class="cosmic-game-btn" id="cosmic-game-btn" aria-label="Play NOVA Cosmic Rush Mini-Game">
+    <span class="game-btn-radar" aria-hidden="true"></span>
+    <span class="game-btn-pulse" aria-hidden="true"></span>
+    <span class="game-btn-starflare" aria-hidden="true"></span>
+    <div class="game-btn-inner">
+      <svg class="gemini-star-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="gameGeminiGradGlimpses" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="30%" stop-color="#19E3FF" />
+            <stop offset="70%" stop-color="#00D2FF" />
+            <stop offset="100%" stop-color="#8B5CF6" />
+          </linearGradient>
+          <linearGradient id="gameGeminiSmallGradGlimpses" x1="28" y1="2" x2="46" y2="20" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="100%" stop-color="#19E3FF" />
+          </linearGradient>
+          <filter id="gameGlowGlimpses" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path d="M22 5 C22 16.5 13.5 25 2 25 C13.5 25 22 33.5 22 45 C22 33.5 30.5 25 42 25 C30.5 25 22 16.5 22 5 Z" fill="url(#gameGeminiGradGlimpses)" filter="url(#gameGlowGlimpses)" />
+        <path d="M37 3 C37 7.4 33.4 11 29 11 C33.4 11 37 14.6 37 19 C37 14.6 40.6 11 45 11 C40.6 11 37 7.4 37 3 Z" fill="url(#gameGeminiSmallGradGlimpses)" />
+        <circle cx="22" cy="25" r="2.2" fill="#FFFFFF" />
+      </svg>
+      <span class="game-btn-pill">GAME</span>
+    </div>
+
+    <div class="game-btn-tooltip" role="tooltip">
+      <span class="game-tooltip-badge">
+        <span class="game-tooltip-dot"></span>
+        <span class="game-tooltip-sub">MINI-GAME</span>
+      </span>
+      <span class="game-tooltip-title">COSMIC RUSH</span>
+      <span class="game-tooltip-arrow">↗</span>
+    </div>
+  </a>
+
+  <script src="js/glimpses.js?v=5.0.6"></script>
 </body>
 </html>
