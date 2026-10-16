@@ -227,7 +227,7 @@
      4.  TERMINAL CHIP  — cycling messages
      ───────────────────────────────────────────── */
   const messages = [
-    'mission@nova ~ $ T-minus 9 days',
+    'mission@nova ~ $ T-minus 8 days',
     'mission@nova ~ $ 12 clubs onboard',
     'mission@nova ~ $ countdown online',
     'mission@nova ~ $ launch pad: RIT',
